@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:Architeptable.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Architeptable.Views.Recipes"
+             x:DataType="models:Recipes">
+    <DockPanel>
+      <ListBox DockPanel.Dock="Left" Width="200" 
+               Items="{Binding All}" 
+               SelectedItem="{Binding Current}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Label Content="{Binding Name}" />
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <DataGrid Items="{Binding Current.Ingredients}">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="true" />
+          <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+        </DataGrid.Columns>
+      </DataGrid>
+    </DockPanel>
+</UserControl>
