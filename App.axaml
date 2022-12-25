@@ -6,8 +6,50 @@
         <local:ViewLocator/>
     </Application.DataTemplates>
 
+    <Application.Resources>
+        <SolidColorBrush x:Key="FicsitPrimary">#FA9549</SolidColorBrush>
+        <SolidColorBrush x:Key="FicsitSecondary">#5F668C</SolidColorBrush>
+        <SolidColorBrush x:Key="Foundation">#5D5D5D</SolidColorBrush>
+        <SolidColorBrush x:Key="Concrete">#E0E3E9</SolidColorBrush>
+        <SolidColorBrush x:Key="Lightest">#787876</SolidColorBrush>
+        <SolidColorBrush x:Key="Light">#575955</SolidColorBrush>
+        <SolidColorBrush x:Key="Dark">#3e403d</SolidColorBrush>
+        <!-- <SolidColorBrush x:Key="Darkest">#2f312e</SolidColorBrush> -->
+        <SolidColorBrush x:Key="Darkest">#000000</SolidColorBrush>
+        <SolidColorBrush x:Key="Text">#ccffffff</SolidColorBrush>
+    </Application.Resources>
+
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <Style Selector="TextBlock.menuText">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiLight" />
+            <Setter Property="Foreground" Value="{StaticResource Text}" />
+        </Style>
+        <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="Fill" Value="Transparent" />
+        </Style>
+        <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="Fill" Value="{StaticResource FicsitPrimary}" />
+        </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource Dark}" />
+            <Setter Property="SeparatorBrush" Value="{StaticResource Dark}" />
+            <Setter Property="TextBlock.Foreground" Value="{StaticResource Text}" />
+            <Setter Property="MinHeight" Value="18" />
+        </Style>
+        <Style Selector="DataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
+            <Setter Property="MaxHeight" Value="0" />
+        </Style>
+        <Style Selector="ListBox, ListBoxItem">
+            <Setter Property="Background" Value="{StaticResource Dark}" />
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource Light}" />
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource FicsitPrimary}" />
+        </Style>
     </Application.Styles>
 </Application>

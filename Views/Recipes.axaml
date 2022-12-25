@@ -7,19 +7,19 @@
              x:Class="Architeptable.Views.Recipes"
              x:DataType="models:Recipes">
     <DockPanel>
-      <ListBox DockPanel.Dock="Left" Width="200" 
+      <ListBox DockPanel.Dock="Left"
                Items="{Binding All}" 
                SelectedItem="{Binding Current}">
         <ListBox.ItemTemplate>
           <DataTemplate>
-            <Label Content="{Binding Name}" />
+            <TextBlock Classes="menuText" Text="{Binding Name}" />
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
 
-      <DataGrid Items="{Binding Current.Ingredients}">
+      <DataGrid Items="{Binding Current.Ingredients}" Margin="0,4,0,0">
         <DataGrid.Columns>
-          <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="true" />
+          <DataGridTextColumn Header="Ingredient" Binding="{Binding Name}" IsReadOnly="true" />
           <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
         </DataGrid.Columns>
       </DataGrid>

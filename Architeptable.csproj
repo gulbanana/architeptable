@@ -8,13 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <AvaloniaResource Include="Assets\**" />
-    <None Remove=".gitignore" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TrimmerRootDescriptor Include="Roots.xml" />
+    <Watch Include="**\*.axaml" />
+    <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
   <ItemGroup>
