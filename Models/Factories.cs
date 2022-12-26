@@ -1,8 +1,6 @@
-using ReactiveUI;
-
 namespace Architeptable.Models;
 
-class Factories : ReactiveObject
+class Factories : ModelBase
 {
     public string Header => "Factories";
 }

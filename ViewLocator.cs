@@ -1,7 +1,7 @@
 using System;
+using Architeptable.Models;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using ReactiveUI;
 
 namespace Architeptable;
 
@@ -22,6 +22,6 @@ public class ViewLocator : IDataTemplate
 
     public bool Match(object data)
     {
-        return data is ReactiveObject;
+        return data is ModelBase;
     }
 }

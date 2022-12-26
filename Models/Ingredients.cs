@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using ReactiveUI;
 
 namespace Architeptable.Models;
 
-class Ingredients : ReactiveObject
+class Ingredients : ModelBase
 {
     public class Ingredient
     {

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using ReactiveUI;
 
 namespace Architeptable.Models;
 
-class Recipes : ReactiveObject
+class Recipes : ModelBase
 {
     public record Ingredient(string Name, double Quantity, bool IsOutput);
 
@@ -21,6 +20,6 @@ class Recipes : ReactiveObject
     public required Recipe Current
     {
         get => current;
-        set => this.RaiseAndSetIfChanged(ref current, value);
+        set => RaiseAndSetIfChanged(ref current, value);
     }
 }
