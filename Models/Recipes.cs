@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Architeptable.Models;
 
-class Recipes : ModelBase
+public class Recipes : ModelBase
 {
     public record Ingredient(string Name, double Quantity, bool IsOutput);
 

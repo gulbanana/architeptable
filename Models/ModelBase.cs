@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Architeptable.Models;
 
-abstract class ModelBase : INotifyPropertyChanged
+public abstract class ModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     protected bool RaiseAndSetIfChanged<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)

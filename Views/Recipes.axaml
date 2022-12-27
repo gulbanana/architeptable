@@ -2,10 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:models="clr-namespace:Architeptable.Models"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Architeptable.Views.Recipes"
-             x:DataType="models:Recipes">
+             xmlns:models="using:Architeptable.Models"
+             x:Class="Architeptable.Views.Recipes" x:DataType="models:Recipes"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" d:DataContext="{x:Static models:Mock.Recipes}">
     <DockPanel>
       <ListBox DockPanel.Dock="Left"
                Items="{Binding All}" 

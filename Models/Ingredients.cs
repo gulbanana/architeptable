@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Architeptable.Models;
 
-class Ingredients : ModelBase
+public class Ingredients : ModelBase
 {
     public class Ingredient
     {
