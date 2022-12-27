@@ -4,7 +4,12 @@ namespace Architeptable.Models;
 
 public class Recipes : ModelBase
 {
-    public record Ingredient(string Name, double Quantity, bool IsOutput);
+    public class Ingredient
+    {
+        public required string Name { get; init; }
+        public required double Quantity { get; init; }
+        public bool IsOutput { get; init; }
+    }
 
     public class Recipe
     {

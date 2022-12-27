@@ -5,16 +5,16 @@ namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    private static readonly List<Recipes.Recipe> _Recipes = new()
+    private static readonly List<Recipes.Recipe> recipes = new()
     {
         new()
         {
             Name = "Pure Iron Ingot",
             Ingredients = new List<Recipes.Ingredient>
             {
-                new("Iron Ore", 35, false),
-                new("Water", 20, false),
-                new("Iron Ingot", 65, true)
+                new() { Name = "Iron Ore", Quantity = 35 },
+                new() { Name = "Water", Quantity = 20 },
+                new() { Name = "Iron Ingot", Quantity = 65, IsOutput = true },
             }
         },
         new()
@@ -22,16 +22,16 @@ public static partial class Mock
             Name = "Iron Alloy Ingot",
             Ingredients = new List<Recipes.Ingredient>
             {
-                new("Iron Ore", 20, false),
-                new("Copper Ore", 20, false),
-                new("Iron Ingot", 50, true)
+                new() { Name = "Iron Ore", Quantity = 20 },
+                new() { Name = "Copper Ore", Quantity = 20 },
+                new() { Name = "Iron Ingot", Quantity = 50, IsOutput = true },
             }
         }
     };
 
-    public static readonly Recipes Recipes = new Recipes()
+    public static readonly Recipes Recipes = new()
     {
-        All = _Recipes,
-        Current = _Recipes.First()
+        All = recipes,
+        Current = recipes.First()
     };
 }

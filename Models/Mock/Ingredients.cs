@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    private static readonly List<Ingredients.Ingredient> _Ingredients = new()
+    private static readonly List<Ingredients.Ingredient> ingredients = new()
     {
         new() { Name = "Water" },
         new() { Name = "Iron Ore" },
@@ -14,8 +13,8 @@ public static partial class Mock
         new() { Name = "Copper Ingot" },
     };
 
-    public static readonly Ingredients Ingredients = new Ingredients()
+    public static readonly Ingredients Ingredients = new()
     {
-        All = _Ingredients
+        All = ingredients
     };
 }
