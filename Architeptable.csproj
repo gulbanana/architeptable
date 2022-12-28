@@ -27,4 +27,9 @@
     <Watch Include="**\*.axaml" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Views\AsyncView.axaml" />
+    <Watch Remove="Views\Shell.axaml" />
+  </ItemGroup>
 </Project>

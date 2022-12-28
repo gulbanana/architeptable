@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:Architeptable.Models"
+             xmlns:views="using:Architeptable.Views"
+             x:Class="Architeptable.Views.Shell" x:DataType="models:Shell"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" d:DataContext="{x:Static models:Mock.Shell}">
+  <TabControl Items="{Binding Tabs}" Background="{StaticResource Dark}" Padding="0" SelectedIndex="1">
+    <TabControl.Styles>
+      <Style Selector="TabControl /template/ ItemsPresenter>WrapPanel">
+        <Setter Property="Background" Value="{StaticResource Dark}" />
+        <Setter Property="Margin" Value="4,4,4,-2" />
+      </Style>
+      <Style Selector="TabItem">
+        <Setter Property="MinWidth" Value="200" />
+        <Setter Property="MinHeight" Value="30" />
+      </Style>
+      <Style Selector="TabItem>Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="{StaticResource Lightest}" />
+      </Style>
+      <Style Selector="TabItem:selected>Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="{StaticResource Light}" />
+      </Style>
+      <Style Selector="TabItem:pointerover>Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="{StaticResource FicsitPrimary}" />
+      </Style>
+      <Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+        <Setter Property="IsVisible" Value="false" />
+      </Style>
+      <Style Selector="TabItem:selected /template/ TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource Text}" />
+      </Style>
+    </TabControl.Styles>
+
+    <TabControl.ItemTemplate>
+      <DataTemplate>
+        <TextBlock Classes="menuText" Text="{Binding Header}" />
+      </DataTemplate>
+    </TabControl.ItemTemplate>
+
+    <TabControl.ContentTemplate>
+      <DataTemplate>
+        <DockPanel>
+          <Rectangle DockPanel.Dock="Top" Fill="{StaticResource Light}" MinHeight="4" />
+          <views:AsyncView />
+        </DockPanel>
+      </DataTemplate>
+    </TabControl.ContentTemplate>
+  </TabControl>
+</UserControl>

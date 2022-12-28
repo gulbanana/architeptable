@@ -1,6 +1,14 @@
+using Architeptable.Data;
+using System.Threading.Tasks;
+
 namespace Architeptable.Models;
 
-class Factories : ModelBase
+public class Factories : TabModelBase
 {
-    public string Header => "Factories";
+    public override string Header => "Factories";
+
+    internal override Task LoadAsync(EntityContext context)
+    {
+        return Task.CompletedTask;
+    }
 }

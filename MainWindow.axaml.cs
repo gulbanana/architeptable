@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Architeptable.Views;
+namespace Architeptable;
 
 public partial class MainWindow : Window
 {
