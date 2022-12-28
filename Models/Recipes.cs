@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,21 +34,15 @@ public class Recipes : TabModelBase
 
     internal override async Task LoadAsync(Data.EntityContext context)
     {
-        var recipesWithIngredients = await context.Recipes
-            .Include(r => r.Ingredients)
-            .ThenInclude(ri => ri.Ingredient)
-            .ToListAsync();
+        var recipesWithIngredients = from r in context.Recipes
+                                     from ri in r.Ingredients
+                                     let i = ri.Ingredient
+                                     let im = new Ingredient { Name = i.Name, Quantity = ri.Quantity, IsOutput = ri.IsOutput }
+                                     select new { r.Name, im };
 
-        All = recipesWithIngredients.Select(r => new Recipe
-        {
-            Name = r.Name,
-            Ingredients = r.Ingredients.Select(ri => new Ingredient
-            {
-                Name = ri.Ingredient.Name,
-                Quantity = ri.Quantity,
-                IsOutput = ri.IsOutput
-            }).ToList()
-        }).ToList();
+        All = from r in await recipesWithIngredients.ToListAsync()
+              group r.im by r.Name into g
+              select new Recipe { Name = g.Key, Ingredients = g };
 
         current = All.First();
     }
