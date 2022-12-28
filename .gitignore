@@ -449,3 +449,6 @@ $RECYCLE.BIN/
 ##
 .vscode/*
 Avalonia.AXAML.LanguageServer.Log*.txt
+
+## artifacts
+Data/Precompiled

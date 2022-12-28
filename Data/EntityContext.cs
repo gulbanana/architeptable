@@ -17,5 +17,10 @@ class EntityContext : DbContext
         DbPath = System.IO.Path.Join(localAppData, "architeptable.etilqs");
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite($"Data Source={DbPath}");
+    protected override void OnConfiguring(DbContextOptionsBuilder options) =>
+        options
+#if !DEBUG
+            .UseModel(Precompiled.EntityContextModel.Instance)
+#endif
+            .UseSqlite($"Data Source={DbPath}");
 }
