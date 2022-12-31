@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace Architeptable.Models;
 
-public class Ingredients : TabModelBase
+public class Parts : TabModelBase
 {
     public class Ingredient
     {
         public required string Name { get; init; }
     }
 
-    public override string Header => "Ingredients";
+    public override string Header => "Parts";
 
     public IEnumerable<Ingredient> All { get; set; } = Enumerable.Empty<Ingredient>();
 

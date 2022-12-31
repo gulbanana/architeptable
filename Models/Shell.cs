@@ -26,7 +26,7 @@ public class Shell : LoadableModelBase
             {
                 new Factories(),
                 new Recipes(),
-                new Ingredients()
+                new Parts()
             };
         });
     }

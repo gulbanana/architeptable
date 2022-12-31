@@ -31,6 +31,12 @@ static class Bootstrap
             new() { ID = 7, RecipeID = 2, IngredientID = 2, Quantity = 37.5, IsOutput = true },
         });
 
+        context.Facilities.AddRange(new Facility[]
+        {
+            new() { Name = "EMS Corner" },
+            new() { Name = "Nuclear Power Plant" }
+        });
+
         context.SaveChanges();
     }
 }

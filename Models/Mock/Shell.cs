@@ -6,8 +6,9 @@ public static partial class Mock
     {
         Tabs = new LoadableModelBase[]
         {
-            new Recipes(),
-            new Ingredients()
+            Factories,
+            Recipes,
+            Parts
         }
     };
 }
