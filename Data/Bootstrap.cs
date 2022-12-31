@@ -20,7 +20,7 @@ static class Bootstrap
             new() { ID = 2, Name = "Silica" },
         });
         
-        context.RecipeIngredients.AddRange(new Ingredient[]
+        context.Ingredients.AddRange(new Ingredient[]
         {
             new() { ID = 1, RecipeID = 1, PartID = 1, Quantity = 25 },
             new() { ID = 2, RecipeID = 1, PartID = 2, Quantity = 15 },

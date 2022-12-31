@@ -7,7 +7,7 @@ class EntityContext : DbContext
 {
     public DbSet<Part> Parts => Set<Part>();
     public DbSet<Recipe> Recipes => Set<Recipe>();
-    public DbSet<Ingredient> RecipeIngredients => Set<Ingredient>();
+    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
     public DbSet<Facility> Facilities => Set<Facility>();
 
     public string DbPath { get; }
