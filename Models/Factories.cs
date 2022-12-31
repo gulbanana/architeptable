@@ -8,20 +8,34 @@ namespace Architeptable.Models;
 
 public class Factories : TabModelBase
 {
-    public class Facility
-    {
-        public required string Name { get; init; }
-    }
-
     public override string Header => "Factories";
+    public IEnumerable<Row> All { get; set; } = Enumerable.Empty<Row>();
 
-    public IEnumerable<Facility> All { get; set; } = Enumerable.Empty<Facility>();
+    public Factories(Shell? owner) : base(owner) { }
 
     internal override async Task LoadAsync(EntityContext context)
     {
+        var self = this;
         var allFacilities = from f in context.Facilities
-                            select new Facility { Name = f.Name };
+                            select new Row { Owner = self, ID = f.ID, Name = f.Name };
 
         All = await allFacilities.ToListAsync();
+    }
+
+    public class Row
+    {
+        public TabModelBase? Owner { get; init; }
+        public int ID { get; init; }
+
+        private string? name;
+        public required string Name
+        {
+            get => name!;
+            set
+            {
+                name = value;
+                Owner?.Save(c => c.Facilities.Find(ID)!.Name = value);
+            }
+        }
     }
 }

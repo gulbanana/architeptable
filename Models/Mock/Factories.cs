@@ -2,11 +2,11 @@ namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    public static readonly Factories Factories = new()
+    public static readonly Factories Factories = new(null)
     {
         All = new[]
         {
-            new Factories.Facility { Name = "Nuclear Power Plant" }
+            new Factories.Row { Name = "Nuclear Power Plant" }
         }
     };
 }

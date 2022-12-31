@@ -4,7 +4,7 @@ namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    private static readonly List<Parts.Ingredient> parts = new()
+    private static readonly List<Parts.Row> parts = new()
     {
         new() { Name = "Water" },
         new() { Name = "Iron Ore" },
@@ -13,7 +13,7 @@ public static partial class Mock
         new() { Name = "Copper Ingot" },
     };
 
-    public static readonly Parts Parts = new()
+    public static readonly Parts Parts = new(null)
     {
         All = parts
     };

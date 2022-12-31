@@ -8,7 +8,7 @@ namespace Architeptable.Models;
 public class Shell : LoadableModelBase
 {
     public override bool IsLoaded => false;
-    public IEnumerable<LoadableModelBase> Tabs { get; set; } = Enumerable.Empty<LoadableModelBase>();
+    public IEnumerable<TabModelBase> Tabs { get; set; } = Enumerable.Empty<TabModelBase>();
 
     public override Task LoadAsync()
     {
@@ -22,12 +22,23 @@ public class Shell : LoadableModelBase
                 Bootstrap.InitDB(context);
             }
 
-            Tabs = new LoadableModelBase[]
+            Tabs = new TabModelBase[]
             {
-                new Factories(),
-                new Recipes(),
-                new Parts()
+                new Factories(this),
+                new Recipes(this),
+                new Parts(this)
             };
         });
+    }
+
+    public void InvalidateOthers(TabModelBase sender)
+    {
+        foreach (var tab in Tabs)
+        {
+            if (tab != sender)
+            {
+                tab.Invalidate();
+            }
+        }
     }
 }

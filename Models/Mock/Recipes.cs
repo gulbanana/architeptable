@@ -10,7 +10,7 @@ public static partial class Mock
         new()
         {
             Name = "Pure Iron Ingot",
-            Ingredients = new List<Recipes.Ingredient>
+            Ingredients = new List<Recipes.IngredientRow>
             {
                 new() { Name = "Iron Ore", Quantity = 35 },
                 new() { Name = "Water", Quantity = 20 },
@@ -20,7 +20,7 @@ public static partial class Mock
         new()
         {
             Name = "Iron Alloy Ingot",
-            Ingredients = new List<Recipes.Ingredient>
+            Ingredients = new List<Recipes.IngredientRow>
             {
                 new() { Name = "Iron Ore", Quantity = 20 },
                 new() { Name = "Copper Ore", Quantity = 20 },
@@ -29,7 +29,7 @@ public static partial class Mock
         }
     };
 
-    public static readonly Recipes Recipes = new()
+    public static readonly Recipes Recipes = new(null)
     {
         All = recipes,
         Current = recipes.First()

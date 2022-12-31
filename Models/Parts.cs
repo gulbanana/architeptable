@@ -7,20 +7,34 @@ namespace Architeptable.Models;
 
 public class Parts : TabModelBase
 {
-    public class Ingredient
-    {
-        public required string Name { get; init; }
-    }
-
     public override string Header => "Parts";
+    public IEnumerable<Row> All { get; set; } = Enumerable.Empty<Row>();
 
-    public IEnumerable<Ingredient> All { get; set; } = Enumerable.Empty<Ingredient>();
+    public Parts(Shell? owner) : base(owner) { }
 
     internal override async Task LoadAsync(Data.EntityContext context)
     {
+        var self = this;
         var allIngredients = from i in context.Ingredients
-                             select new Ingredient { Name = i.Name };
+                             select new Row { Owner = self, ID = i.ID, Name = i.Name };
 
         All = await allIngredients.ToListAsync();
+    }
+
+    public class Row
+    {
+        public TabModelBase? Owner { get; init; }
+        public int ID { get; init; }        
+
+        private string? name;
+        public required string Name
+        {
+            get => name!;
+            set
+            {
+                name = value;
+                Owner?.Save(c => c.Ingredients.Find(ID)!.Name = value);
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ public static partial class Mock
 {
     public static Shell Shell => new Shell
     {
-        Tabs = new LoadableModelBase[]
+        Tabs = new TabModelBase[]
         {
             Factories,
             Recipes,

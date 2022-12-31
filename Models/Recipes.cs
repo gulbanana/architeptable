@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,24 +7,12 @@ namespace Architeptable.Models;
 
 public class Recipes : TabModelBase
 {
-    public class Ingredient
-    {
-        public required string Name { get; init; }
-        public required double Quantity { get; init; }
-        public bool IsOutput { get; init; }
-    }
-
-    public class Recipe
-    {
-        public required string Name { get; init; }
-        public required IEnumerable<Ingredient> Ingredients { get; init; }
-    }
-
     public override string Header => "Recipes";
-
     public IEnumerable<Recipe> All { get; set; } = Enumerable.Empty<Recipe>();
-
     private Recipe current = default!;
+
+    public Recipes(Shell? owner) : base(owner) { }
+
     public Recipe Current
     {
         get => current;
@@ -34,10 +21,11 @@ public class Recipes : TabModelBase
 
     internal override async Task LoadAsync(Data.EntityContext context)
     {
+        var self = this;
         var recipesWithIngredients = from r in context.Recipes
                                      from ri in r.Ingredients
                                      let i = ri.Ingredient
-                                     let im = new Ingredient { Name = i.Name, Quantity = ri.Quantity, IsOutput = ri.IsOutput }
+                                     let im = new IngredientRow { Owner = self, ID = ri.ID, Name = i.Name, Quantity = ri.Quantity, IsOutput = ri.IsOutput }
                                      select new { r.Name, im };
 
         All = from r in await recipesWithIngredients.ToListAsync()
@@ -45,5 +33,41 @@ public class Recipes : TabModelBase
               select new Recipe { Name = g.Key, Ingredients = g };
 
         current = All.First();
+    }
+
+    public class IngredientRow
+    {
+        public TabModelBase? Owner { get; init; }
+        public int ID { get; init; }
+
+        public required string Name { get; init; }
+
+        private double quantity;
+        public required double Quantity
+        {
+            get => quantity;
+            set
+            {
+                quantity = value;
+                Owner?.Save(c => c.RecipeIngredients.Find(ID)!.Quantity = value);
+            }
+        }
+
+        private bool isOutput;
+        public bool IsOutput
+        {
+            get => isOutput;
+            set
+            {
+                isOutput = value;
+                Owner?.Save(c => c.RecipeIngredients.Find(ID)!.IsOutput = value);
+            }
+        }
+    }
+
+    public class Recipe
+    {
+        public required string Name { get; init; }
+        public required IEnumerable<IngredientRow> Ingredients { get; init; }
     }
 }
