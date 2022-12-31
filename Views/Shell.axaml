@@ -6,10 +6,9 @@
              xmlns:views="using:Architeptable.Views"
              x:Class="Architeptable.Views.Shell" x:DataType="models:Shell"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" d:DataContext="{x:Static models:Mock.Shell}">
-  <TabControl Items="{Binding Tabs}" Background="{StaticResource Dark}" Padding="0" SelectedIndex="1">
+  <TabControl Items="{Binding Tabs}" Background="{x:Null}" Padding="0" SelectedIndex="1">
     <TabControl.Styles>
       <Style Selector="TabControl /template/ ItemsPresenter>WrapPanel">
-        <Setter Property="Background" Value="{StaticResource Dark}" />
         <Setter Property="Margin" Value="4,4,4,-2" />
       </Style>
       <Style Selector="TabItem">
@@ -43,7 +42,7 @@
       <DataTemplate>
         <DockPanel>
           <Rectangle DockPanel.Dock="Top" Fill="{StaticResource Light}" MinHeight="4" />
-          <views:AsyncView />
+          <views:AsyncView Background="{StaticResource Darkest}" />
         </DockPanel>
       </DataTemplate>
     </TabControl.ContentTemplate>

@@ -7,6 +7,8 @@
         x:Class="Architeptable.MainWindow"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" d:DataContext="{x:Static models:Mock.Shell}"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Architeptable">
+        Title="Architeptable"
+        ExtendClientAreaToDecorationsHint="True"
+        Background="{StaticResource Dark}">
     <views:AsyncView />
 </Window>
