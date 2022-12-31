@@ -32,18 +32,28 @@ public class Recipes : TabModelBase
                                      from i in r.Ingredients
                                      let p = i.Part
                                      let im = new IngredientModel { Owner = self, ID = i.ID, CurrentPart = new(p.ID, p.Name), AllParts = allParts, Quantity = i.Quantity, IsOutput = i.IsOutput }
-                                     select new { r.Name, im };
+                                     select new { r.ID, r.Name, im };
 
         All = (from r in await recipesWithIngredients.ToListAsync()
-               group r.im by r.Name into g
-               select new RecipeModel(g.Key, g)).ToList();
+               group r.im by (r.ID, r.Name) into g
+               select new RecipeModel { Owner = self, ID = g.Key.ID, Name = g.Key.Name, Ingredients = g }).ToList();
 
         Current = All.First();
     }
 
     public record PartModel(int ID, string Name);
 
-    public record RecipeModel(string Name, IEnumerable<IngredientModel> Ingredients);
+    public class RecipeModel : EntityModelBase<Recipe>
+    {
+        private string? name;
+        public required string Name
+        {
+            get => name!;
+            set => SaveIfChanged(ref name, value);
+        }
+
+        public required IEnumerable<IngredientModel> Ingredients { get; init; }
+    }
 
     public class IngredientModel : EntityModelBase<Ingredient>
     {

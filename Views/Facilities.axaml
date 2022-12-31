@@ -17,11 +17,12 @@
     </ListBox>
 
     <Border Classes="detail">
-      <DataGrid Items="{Binding All}">
-        <DataGrid.Columns>
-          <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-        </DataGrid.Columns>
-      </DataGrid>
+      <StackPanel Orientation="Vertical">
+        <DockPanel>
+          <Label DockPanel.Dock="Left" Target="nameBox" Content="Name:" />
+          <TextBox x:Name="nameBox" Text="{Binding Current.Name}" />
+        </DockPanel>
+      </StackPanel>
     </Border>
   </DockPanel>
 </UserControl>
