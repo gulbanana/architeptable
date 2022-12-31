@@ -40,10 +40,11 @@ public abstract class TabModelBase : LoadableModelBase
         using (var context = new EntityContext())
         {
             write(context);
-            context.SaveChanges();
+            if (context.SaveChanges() > 0)
+            {
+                owner.InvalidateOthers(this);
+            }
         }
-
-        owner.InvalidateOthers(this);
     }
 
     internal abstract Task LoadAsync(EntityContext context);

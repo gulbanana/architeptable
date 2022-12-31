@@ -32,8 +32,11 @@ public class Parts : TabModelBase
             get => name!;
             set
             {
-                name = value;
-                Owner?.Save(c => c.Parts.Find(ID)!.Name = value);
+                if (name != value)
+                {
+                    name = value;
+                    Owner?.Save(c => c.Parts.Find(ID)!.Name = value);
+                }
             }
         }
     }

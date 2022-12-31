@@ -33,11 +33,11 @@ public class Recipes : TabModelBase
                                      let im = new IngredientRow { Owner = self, ID = i.ID, CurrentPart = new(p.ID, p.Name), AllParts = allParts, Quantity = i.Quantity, IsOutput = i.IsOutput }
                                      select new { r.Name, im };
 
-        All = from r in await recipesWithIngredients.ToListAsync()
-              group r.im by r.Name into g
-              select new RecipeModel(g.Key, g);
+        All = (from r in await recipesWithIngredients.ToListAsync()
+               group r.im by r.Name into g
+               select new RecipeModel(g.Key, g)).ToList();
 
-        current = All.First();
+        Current = All.First();
     }
 
     public class IngredientRow
@@ -67,8 +67,11 @@ public class Recipes : TabModelBase
             get => quantity;
             set
             {
-                quantity = value;
-                Owner?.Save(c => c.Ingredients.Find(ID)!.Quantity = value);
+                if (quantity != value)
+                {
+                    quantity = value;
+                    Owner?.Save(c => c.Ingredients.Find(ID)!.Quantity = value);
+                }
             }
         }
 
@@ -78,8 +81,11 @@ public class Recipes : TabModelBase
             get => isOutput;
             set
             {
-                isOutput = value;
-                Owner?.Save(c => c.Ingredients.Find(ID)!.IsOutput = value);
+                if (isOutput != value)
+                {
+                    isOutput = value;
+                    Owner?.Save(c => c.Ingredients.Find(ID)!.IsOutput = value);
+                }
             }
         }
     }

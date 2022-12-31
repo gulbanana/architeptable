@@ -27,6 +27,7 @@ public class Facilities : TabModelBase
                             select new FacilityModel { Owner = self, ID = f.ID, Name = f.Name };
 
         All = await allFacilities.ToListAsync();
+        Current = All.First();
     }
 
     public class FacilityModel
@@ -40,8 +41,11 @@ public class Facilities : TabModelBase
             get => name!;
             set
             {
-                name = value;
-                Owner?.Save(c => c.Facilities.Find(ID)!.Name = value);
+                if (name != value)
+                {
+                    name = value;
+                    Owner?.Save(c => c.Facilities.Find(ID)!.Name = value);
+                }
             }
         }
     }
