@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:Architeptable.Models"
              x:Class="Architeptable.Views.Facilities" x:DataType="models:Facilities"
-             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Factories}">
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Facilities}">
   <DockPanel>
     <ListBox DockPanel.Dock="Left"
              Items="{Binding All}"
