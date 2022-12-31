@@ -26,7 +26,7 @@
 
         <DataGrid Items="{Binding Current.Processes}">
           <DataGrid.Columns>
-            <controls:DataGridComboColumn Header="Process" Binding="{Binding Recipe}" Items="{Binding RecipeOptions}" />
+            <controls:DataGridOptionColumn Header="Process" Binding="{Binding Recipe}" Items="{Binding RecipeOptions}" />
             <DataGridTextColumn Header="Machines" Binding="{Binding Machines}" />
             <DataGridTextColumn Header="Overclock" Binding="{Binding OverclockText}" />
           </DataGrid.Columns>
@@ -34,17 +34,17 @@
 
         <DataGrid Items="{Binding Current.Inputs}">
           <DataGrid.Columns>
-            <controls:DataGridComboColumn Header="Planned Input" Binding="{Binding Part}" Items="{Binding PartOptions}" />
+            <controls:DataGridOptionColumn Header="Planned Input" Binding="{Binding Part}" Items="{Binding PartOptions}" />
             <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-            <DataGridTextColumn Binding="{Binding Comment}" />
+            <controls:DataGridDerivedColumn Header="Consumption" Binding="{Binding ActualQuantity}" />
           </DataGrid.Columns>
         </DataGrid>
 
         <DataGrid Items="{Binding Current.Outputs}">
           <DataGrid.Columns>
-            <controls:DataGridComboColumn Header="Planned Output" Binding="{Binding Part}" Items="{Binding PartOptions}" />
+            <controls:DataGridOptionColumn Header="Planned Output" Binding="{Binding Part}" Items="{Binding PartOptions}" />
             <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-            <DataGridTextColumn Binding="{Binding Comment}" />
+            <controls:DataGridDerivedColumn Header="Production" Binding="{Binding ActualQuantity}" />
           </DataGrid.Columns>
         </DataGrid>
       </StackPanel>

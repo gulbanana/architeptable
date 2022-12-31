@@ -1,4 +1,5 @@
 using Architeptable.Data;
+using Avalonia.Media;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -87,12 +88,14 @@ public partial class Facilities : TabModelBase
 
         foreach (var input in current.Inputs)
         {
-            input.Comment = $"Consumption: {-usage[input.Part.ID]}";
+            input.ActualQuantity = -usage.GetValueOrDefault(input.Part.ID, 0);
+            input.Highlight = input.ActualQuantity <= input.Quantity ? Brushes.White : Brushes.Red;
         }
 
         foreach (var output in current.Outputs)
         {
-            output.Comment = $"Production: {usage[output.Part.ID]}";
+            output.ActualQuantity = usage.GetValueOrDefault(output.Part.ID, 0);
+            output.Highlight = output.ActualQuantity >= output.Quantity ? Brushes.White : Brushes.Red;
         }
     }
 
@@ -126,11 +129,11 @@ public partial class Facilities : TabModelBase
             set => SaveIfChanged(ref quantity, value);
         }
 
-        private string comment = "";
-        public string Comment
+        private double actualQuantity;
+        public double ActualQuantity
         {
-            get => comment;
-            set => RaiseAndSetIfChanged(ref comment, value);
+            get => actualQuantity;
+            set => RaiseAndSetIfChanged(ref actualQuantity, value);
         }
     }
 

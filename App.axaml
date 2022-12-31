@@ -46,6 +46,12 @@
     <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
       <Setter Property="Fill" Value="{StaticResource FicsitPrimary}" />
     </Style>
+    <Style Selector="Border.derived > TextBlock">
+      <Setter Property="Foreground" Value="{Binding Highlight}" />
+    </Style>
+    <Style Selector="DataGridRow:pointerover Border.derived > TextBlock">
+      <Setter Property="Foreground" Value="{StaticResource ControlText}" />
+    </Style>
     <Style Selector="DataGridColumnHeader">
       <Setter Property="Background" Value="{StaticResource Dark}" />
       <Setter Property="SeparatorBrush" Value="{StaticResource Dark}" />

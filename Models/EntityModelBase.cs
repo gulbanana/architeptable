@@ -1,4 +1,5 @@
 ﻿using Architeptable.Data;
+using Avalonia.Media;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -9,6 +10,13 @@ public class EntityModelBase : ModelBase
 {
     public TabModelBase? Owner { get; init; }
     public int ID { get; init; }
+
+    private IBrush highlight = Brushes.Transparent;
+    public IBrush Highlight
+    {
+        get => highlight;
+        set => RaiseAndSetIfChanged(ref highlight, value);
+    }
 
     protected bool SaveIfChanged<T>(ref T field, T value, Action<EntityContext> write, [CallerMemberName] string? propertyName = null)
     {

@@ -1,3 +1,4 @@
+using Avalonia.Media;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ public static partial class Mock
             Name = "Nuclear Power Plant",
             Inputs = new Facilities.IngredientModel[]
             {
-                new() { Part = facilityParts[0], Quantity = 1000 }
+                new() { Part = facilityParts[0], Quantity = 600, ActualQuantity = 900, Highlight = Brushes.Red }
             },
             Outputs = Enumerable.Empty<Facilities.IngredientModel>(),
             Processes = new Facilities.ProcessModel[]

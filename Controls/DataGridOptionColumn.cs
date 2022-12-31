@@ -12,9 +12,9 @@ using System.Reactive.Subjects;
 
 namespace Architeptable.Controls;
 
-public class DataGridComboColumn : DataGridBoundColumn
+public class DataGridOptionColumn : DataGridBoundColumn
 {
-    public DataGridComboColumn() 
+    public DataGridOptionColumn() 
     {
         IsReadOnly = false;
         BindingTarget = ComboBox.SelectedItemProperty;
@@ -22,7 +22,7 @@ public class DataGridComboColumn : DataGridBoundColumn
 
     protected override void LogBindingError(AvaloniaProperty property, Exception e) { }
 
-    public static readonly StyledProperty<IEnumerable> ItemsProperty = AvaloniaProperty.Register<DataGridComboColumn, IEnumerable>(nameof(Items), defaultValue: Enumerable.Empty<OptionModel>());
+    public static readonly StyledProperty<IEnumerable> ItemsProperty = AvaloniaProperty.Register<DataGridOptionColumn, IEnumerable>(nameof(Items), defaultValue: Enumerable.Empty<OptionModel>());
     public IEnumerable Items
     {
         get => GetValue(ItemsProperty);
