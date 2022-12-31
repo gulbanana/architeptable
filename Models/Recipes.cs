@@ -45,6 +45,11 @@ public class Recipes : TabModelBase
             .ToListAsync();
     }
 
+    internal override Task CalculateAsync(EntityContext context)
+    {
+        return Task.CompletedTask;
+    }
+
     public class RecipeModel : EntityModelBase<Recipe>
     {
         private string? name;

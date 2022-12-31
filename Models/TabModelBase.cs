@@ -1,4 +1,5 @@
 ﻿using Architeptable.Data;
+using Avalonia.Threading;
 using System;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ public abstract class TabModelBase : LoadableModelBase
         using (var context = new EntityContext())
         {
             await LoadAsync(context);
+            await CalculateAsync(context);
             isLoaded = true;
         }
     }
@@ -37,15 +39,21 @@ public abstract class TabModelBase : LoadableModelBase
             return;
         }
 
-        using (var context = new EntityContext())
+        Dispatcher.UIThread.InvokeAsync(async () =>
         {
-            write(context);
-            if (context.SaveChanges() > 0)
+            using (var context = new EntityContext())
             {
-                owner.InvalidateOthers(this);
+                write(context);
+                if (await context.SaveChangesAsync() > 0)
+                {
+                    owner.InvalidateOthers(this);
+                    await CalculateAsync(context);
+                }
             }
-        }
+        });
     }
 
     internal abstract Task LoadAsync(EntityContext context);
+
+    internal abstract Task CalculateAsync(EntityContext context);
 }

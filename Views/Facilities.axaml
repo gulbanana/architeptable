@@ -24,13 +24,6 @@
           <TextBox x:Name="nameBox" Text="{Binding Current.Name}" />
         </DockPanel>
 
-        <DataGrid Items="{Binding Current.Inputs}">
-          <DataGrid.Columns>
-            <controls:DataGridComboColumn Header="Input" Binding="{Binding Part}" Items="{Binding PartOptions}" />
-            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-          </DataGrid.Columns>
-        </DataGrid>
-
         <DataGrid Items="{Binding Current.Processes}">
           <DataGrid.Columns>
             <controls:DataGridComboColumn Header="Process" Binding="{Binding Recipe}" Items="{Binding RecipeOptions}" />
@@ -39,10 +32,19 @@
           </DataGrid.Columns>
         </DataGrid>
 
+        <DataGrid Items="{Binding Current.Inputs}">
+          <DataGrid.Columns>
+            <controls:DataGridComboColumn Header="Planned Input" Binding="{Binding Part}" Items="{Binding PartOptions}" />
+            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+            <DataGridTextColumn Binding="{Binding Comment}" />
+          </DataGrid.Columns>
+        </DataGrid>
+
         <DataGrid Items="{Binding Current.Outputs}">
           <DataGrid.Columns>
-            <controls:DataGridComboColumn Header="Output" Binding="{Binding Part}" Items="{Binding PartOptions}" />
+            <controls:DataGridComboColumn Header="Planned Output" Binding="{Binding Part}" Items="{Binding PartOptions}" />
             <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+            <DataGridTextColumn Binding="{Binding Comment}" />
           </DataGrid.Columns>
         </DataGrid>
       </StackPanel>

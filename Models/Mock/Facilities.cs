@@ -8,13 +8,17 @@ public static partial class Mock
 {
     private static readonly List<OptionModel> facilityParts = new()
     {
-        new(0, "Uranium")
+        new(0, "Uranium Ore"),
+        new(0, "Silica"),
+        new(0, "Sulfur"),
+        new(0, "Quickwire"),
+        new(0, "Encased Uranium Cell"),
     };
 
 
     private static readonly List<OptionModel> facilityRecipes = new()
     {
-        new(0, "Nuclear Power")
+        new(0, "Infused Uranium Cell")
     };
 
     private static readonly List<Facilities.FacilityModel> facilityFacilities = new()

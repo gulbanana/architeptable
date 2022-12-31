@@ -23,6 +23,11 @@ public class Parts : TabModelBase
         All = await allIngredients.ToListAsync();
     }
 
+    internal override Task CalculateAsync(EntityContext context)
+    {
+        return Task.CompletedTask;
+    }
+
     public class Row : EntityModelBase<Part>
     {
         private string? name;

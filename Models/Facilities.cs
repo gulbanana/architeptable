@@ -1,6 +1,7 @@
 using Architeptable.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,7 +45,10 @@ public partial class Facilities : TabModelBase
                                 .Select(s => new IngredientModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
                                 .OrderBy(i => i.Part.Name)
                                 .ToList()
-                            let processes = f.Processes.Select(p => new ProcessModel { Owner = self, ID = p.ID, Recipe = new OptionModel(p.Recipe.ID, p.Recipe.Name), Machines = p.Machines, Overclock = p.Overclock })
+                            let processes = f.Processes
+                                .Select(p => new ProcessModel { Owner = self, ID = p.ID, Recipe = new OptionModel(p.Recipe.ID, p.Recipe.Name), Machines = p.Machines, Overclock = p.Overclock })
+                                .OrderBy(p => p.Recipe.Name)
+                                .ToList()
                             orderby f.Name
                             select new FacilityModel 
                             { 
@@ -69,6 +73,27 @@ public partial class Facilities : TabModelBase
             .OrderBy(r => r.Name)
             .Select(p => new OptionModel(p.ID, p.Name))
             .ToListAsync();
+    }
+
+    internal override async Task CalculateAsync(EntityContext context)
+    {
+        var production = await (from p in context.Processes
+                                where current.Processes.Select(p => p.ID).Contains(p.ID)
+                                let r = p.Recipe
+                                from i in r.Ingredients
+                                select new { part = i.Part.ID, volume = p.Machines * p.Overclock * i.Quantity * (i.IsOutput ? 1 : -1) }).ToListAsync();
+
+        var usage = production.GroupBy(p => p.part, p => p.volume).ToDictionary(p => p.Key, p => p.Sum());
+
+        foreach (var input in current.Inputs)
+        {
+            input.Comment = $"Consumption: {-usage[input.Part.ID]}";
+        }
+
+        foreach (var output in current.Outputs)
+        {
+            output.Comment = $"Production: {usage[output.Part.ID]}";
+        }
     }
 
     public class FacilityModel : EntityModelBase<Facility>
@@ -99,6 +124,13 @@ public partial class Facilities : TabModelBase
         {
             get => quantity;
             set => SaveIfChanged(ref quantity, value);
+        }
+
+        private string comment = "";
+        public string Comment
+        {
+            get => comment;
+            set => RaiseAndSetIfChanged(ref comment, value);
         }
     }
 
