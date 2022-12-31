@@ -2,83 +2,83 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Architeptable"
              x:Class="Architeptable.App">
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
+  <Application.DataTemplates>
+    <local:ViewLocator/>
+  </Application.DataTemplates>
 
-    <Application.Resources>
-        <SolidColorBrush x:Key="FicsitPrimary">#FA9549</SolidColorBrush>
-        <SolidColorBrush x:Key="FicsitSecondary">#5F668C</SolidColorBrush>
-        <SolidColorBrush x:Key="Foundation">#5D5D5D</SolidColorBrush>
-        <SolidColorBrush x:Key="Concrete">#E0E3E9</SolidColorBrush>
-        <SolidColorBrush x:Key="Lightest">#787876</SolidColorBrush>
-        <SolidColorBrush x:Key="Light">#575955</SolidColorBrush>
-        <SolidColorBrush x:Key="Dark">#3e403d</SolidColorBrush>
-        <SolidColorBrush x:Key="Darkest">#000000</SolidColorBrush>
-        <SolidColorBrush x:Key="LabelText">#ccffffff</SolidColorBrush>
-        <SolidColorBrush x:Key="ControlText">#ffffff</SolidColorBrush>
-    </Application.Resources>
+  <Application.Resources>
+    <SolidColorBrush x:Key="FicsitPrimary">#FA9549</SolidColorBrush>
+    <SolidColorBrush x:Key="FicsitSecondary">#5F668C</SolidColorBrush>
+    <SolidColorBrush x:Key="Foundation">#5D5D5D</SolidColorBrush>
+    <SolidColorBrush x:Key="Concrete">#E0E3E9</SolidColorBrush>
+    <SolidColorBrush x:Key="Lightest">#787876</SolidColorBrush>
+    <SolidColorBrush x:Key="Light">#575955</SolidColorBrush>
+    <SolidColorBrush x:Key="Dark">#3e403d</SolidColorBrush>
+    <SolidColorBrush x:Key="Darkest">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="LabelText">#ccffffff</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlText">#ffffff</SolidColorBrush>
+  </Application.Resources>
 
-    <Application.Styles>
-        <FluentTheme Mode="Dark"/>
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+  <Application.Styles>
+    <FluentTheme Mode="Dark"/>
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
 
-        <Style Selector="TextBlock,TextBox,Label">
-            <Setter Property="TextBlock.FontSize" Value="20" />
-            <Setter Property="TextBlock.FontWeight" Value="SemiLight" />
-        </Style>
-        <Style Selector="TextBlock.menuText">
-            <Setter Property="Foreground" Value="{StaticResource ControlText}" />
-        </Style>
+    <Style Selector="TextBlock,TextBox,Label">
+      <Setter Property="TextBlock.FontSize" Value="20" />
+      <Setter Property="TextBlock.FontWeight" Value="SemiLight" />
+    </Style>
+    <Style Selector="TextBlock.menuText">
+      <Setter Property="Foreground" Value="{StaticResource ControlText}" />
+    </Style>
 
-        <Style Selector="Label">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,0,8,0" />
-            <Setter Property="Foreground" Value="{StaticResource LabelText}" />
-        </Style>
+    <Style Selector="Label">
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Margin" Value="0,0,8,0" />
+      <Setter Property="Foreground" Value="{StaticResource LabelText}" />
+    </Style>
 
-        <Style Selector="DataGridRow">
-            <Setter Property="Height" Value="40" />
-        </Style>
-        <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
-            <Setter Property="Fill" Value="Transparent" />
-        </Style>
-        <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
-            <Setter Property="Fill" Value="{StaticResource FicsitPrimary}" />
-        </Style>
-        <Style Selector="DataGridColumnHeader">
-            <Setter Property="Background" Value="{StaticResource Dark}" />
-            <Setter Property="SeparatorBrush" Value="{StaticResource Dark}" />
-            <Setter Property="TextBlock.Foreground" Value="{StaticResource LabelText}" />
-            <Setter Property="MinHeight" Value="24" />
-        </Style>
-        <Style Selector="DataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
-            <Setter Property="MaxHeight" Value="0" />
-            <Setter Property="Margin" Value="0,8,0,8" />
-        </Style>
-        <Style Selector="DataGridColumnHeadersPresenter">
-            <Setter Property="Margin" Value="0,8,0,8" />
-        </Style>
+    <Style Selector="DataGridRow">
+      <Setter Property="Height" Value="40" />
+    </Style>
+    <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+    <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+      <Setter Property="Fill" Value="{StaticResource FicsitPrimary}" />
+    </Style>
+    <Style Selector="DataGridColumnHeader">
+      <Setter Property="Background" Value="{StaticResource Dark}" />
+      <Setter Property="SeparatorBrush" Value="{StaticResource Dark}" />
+      <Setter Property="TextBlock.Foreground" Value="{StaticResource LabelText}" />
+      <Setter Property="MinHeight" Value="24" />
+    </Style>
+    <Style Selector="DataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
+      <Setter Property="MaxHeight" Value="0" />
+      <Setter Property="Margin" Value="0,8,0,8" />
+    </Style>
+    <Style Selector="DataGridColumnHeadersPresenter">
+      <Setter Property="Margin" Value="0,8,0,8" />
+    </Style>
 
-        <Style Selector="ListBox">
-            <Setter Property="Width" Value="300" />
-        </Style>
-        <Style Selector="ListBox, ListBoxItem">
-            <Setter Property="Background" Value="{StaticResource Dark}" />
-        </Style>
-        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="{StaticResource Light}" />
-        </Style>
-        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-            <Setter Property="Background" Value="{StaticResource FicsitPrimary}" />
-        </Style>
+    <Style Selector="ListBox">
+      <Setter Property="Width" Value="300" />
+    </Style>
+    <Style Selector="ListBox, ListBoxItem">
+      <Setter Property="Background" Value="{StaticResource Dark}" />
+    </Style>
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource Light}" />
+    </Style>
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource FicsitPrimary}" />
+    </Style>
 
-        <Style Selector="ProgressBar">
-            <Setter Property="Foreground" Value="{StaticResource FicsitPrimary}" />
-        </Style>
+    <Style Selector="ProgressBar">
+      <Setter Property="Foreground" Value="{StaticResource FicsitPrimary}" />
+    </Style>
 
-        <Style Selector="Border.detail">
-            <Setter Property="BoxShadow" Value="0 0 32 16 #33000000" />
-        </Style>
-    </Application.Styles>
+    <Style Selector="Border.detail">
+      <Setter Property="BoxShadow" Value="0 0 32 16 #33000000" />
+    </Style>
+  </Application.Styles>
 </Application>
