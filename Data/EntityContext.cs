@@ -3,7 +3,7 @@ using System;
 
 namespace Architeptable.Data;
 
-class EntityContext : DbContext
+public class EntityContext : DbContext
 {
     public DbSet<Part> Parts => Set<Part>();
     public DbSet<Recipe> Recipes => Set<Recipe>();

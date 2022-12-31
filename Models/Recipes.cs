@@ -1,3 +1,4 @@
+using Architeptable.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,14 @@ public class Recipes : TabModelBase
 
     public Recipes(Shell? owner) : base(owner) { }
 
-    private RecipeModel current = default!;
+    private RecipeModel? current;
     public RecipeModel Current
     {
-        get => current;
+        get => current!;
         set => RaiseAndSetIfChanged(ref current, value);
     }
 
-    internal override async Task LoadAsync(Data.EntityContext context)
+    internal override async Task LoadAsync(EntityContext context)
     {
         var self = this;
 
@@ -30,7 +31,7 @@ public class Recipes : TabModelBase
         var recipesWithIngredients = from r in context.Recipes
                                      from i in r.Ingredients
                                      let p = i.Part
-                                     let im = new IngredientRow { Owner = self, ID = i.ID, CurrentPart = new(p.ID, p.Name), AllParts = allParts, Quantity = i.Quantity, IsOutput = i.IsOutput }
+                                     let im = new IngredientModel { Owner = self, ID = i.ID, CurrentPart = new(p.ID, p.Name), AllParts = allParts, Quantity = i.Quantity, IsOutput = i.IsOutput }
                                      select new { r.Name, im };
 
         All = (from r in await recipesWithIngredients.ToListAsync()
@@ -40,56 +41,33 @@ public class Recipes : TabModelBase
         Current = All.First();
     }
 
-    public class IngredientRow
-    {
-        public TabModelBase? Owner { get; init; }
-        public int ID { get; init; }
+    public record PartModel(int ID, string Name);
 
+    public record RecipeModel(string Name, IEnumerable<IngredientModel> Ingredients);
+
+    public class IngredientModel : EntityModelBase<Ingredient>
+    {
         public required IEnumerable<PartModel> AllParts { get; init; }
 
         private PartModel? currentPart;
         public required PartModel CurrentPart
         {
             get => currentPart!;
-            set
-            {
-                if (currentPart != value)
-                {
-                    currentPart = value;
-                    Owner?.Save(c => c.Ingredients.Find(ID)!.PartID = value.ID);
-                }                
-            }
+            set => SaveIfChanged(ref currentPart, value, e => e.PartID = value.ID);
         }
 
         private double quantity;
         public required double Quantity
         {
             get => quantity;
-            set
-            {
-                if (quantity != value)
-                {
-                    quantity = value;
-                    Owner?.Save(c => c.Ingredients.Find(ID)!.Quantity = value);
-                }
-            }
+            set => SaveIfChanged(ref quantity, value);
         }
 
         private bool isOutput;
         public bool IsOutput
         {
             get => isOutput;
-            set
-            {
-                if (isOutput != value)
-                {
-                    isOutput = value;
-                    Owner?.Save(c => c.Ingredients.Find(ID)!.IsOutput = value);
-                }
-            }
+            set => SaveIfChanged(ref isOutput, value);
         }
     }
-
-    public record RecipeModel(string Name, IEnumerable<IngredientRow> Ingredients);
-    public record PartModel(int ID, string Name);
 }

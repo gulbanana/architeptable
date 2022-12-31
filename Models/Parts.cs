@@ -1,3 +1,4 @@
+using Architeptable.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ public class Parts : TabModelBase
 
     public Parts(Shell? owner) : base(owner) { }
 
-    internal override async Task LoadAsync(Data.EntityContext context)
+    internal override async Task LoadAsync(EntityContext context)
     {
         var self = this;
         var allIngredients = from i in context.Parts
@@ -21,23 +22,13 @@ public class Parts : TabModelBase
         All = await allIngredients.ToListAsync();
     }
 
-    public class Row
+    public class Row : EntityModelBase<Part>
     {
-        public TabModelBase? Owner { get; init; }
-        public int ID { get; init; }        
-
         private string? name;
         public required string Name
         {
             get => name!;
-            set
-            {
-                if (name != value)
-                {
-                    name = value;
-                    Owner?.Save(c => c.Parts.Find(ID)!.Name = value);
-                }
-            }
+            set => SaveIfChanged(ref name, value);
         }
     }
 }

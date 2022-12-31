@@ -2,7 +2,7 @@
 
 namespace Architeptable.Data;
 
-class Facility
+public class Facility
 {
     public int ID { get; set; }
     public string Name { get; set; } = "New Facility";

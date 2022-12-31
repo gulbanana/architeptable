@@ -1,6 +1,6 @@
 namespace Architeptable.Data;
 
-class Ingredient
+public class Ingredient
 {
     public int ID { get; set; }
     public double Quantity { get; set; }

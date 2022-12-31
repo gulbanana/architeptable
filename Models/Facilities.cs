@@ -30,23 +30,13 @@ public class Facilities : TabModelBase
         Current = All.First();
     }
 
-    public class FacilityModel
+    public class FacilityModel : EntityModelBase<Facility>
     {
-        public TabModelBase? Owner { get; init; }
-        public int ID { get; init; }
-
         private string? name;
         public required string Name
         {
             get => name!;
-            set
-            {
-                if (name != value)
-                {
-                    name = value;
-                    Owner?.Save(c => c.Facilities.Find(ID)!.Name = value);
-                }
-            }
+            set => SaveIfChanged(ref name, value);
         }
     }
 }
