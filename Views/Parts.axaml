@@ -5,7 +5,7 @@
              xmlns:models="using:Architeptable.Models"
              x:Class="Architeptable.Views.Parts" x:DataType="models:Parts"
              mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200" d:DataContext="{x:Static models:Mock.Parts}">
-  <DataGrid Items="{Binding All}" Margin="0,4,0,0">
+  <DataGrid Items="{Binding All}" Margin="0,8,0,0">
     <DataGrid.Columns>
       <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
     </DataGrid.Columns>

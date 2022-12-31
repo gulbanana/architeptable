@@ -9,6 +9,8 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="Architeptable"
         ExtendClientAreaToDecorationsHint="True"
-        Background="{StaticResource Dark}">
+        ExtendClientAreaTitleBarHeightHint="48"
+        Background="{StaticResource Dark}"
+        FontSize="30">
     <views:AsyncView />
 </Window>

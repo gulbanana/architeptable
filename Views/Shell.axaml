@@ -5,22 +5,35 @@
              xmlns:models="using:Architeptable.Models"
              xmlns:views="using:Architeptable.Views"
              x:Class="Architeptable.Views.Shell" x:DataType="models:Shell"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" d:DataContext="{x:Static models:Mock.Shell}">
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Shell}">
   <TabControl Items="{Binding Tabs}" Background="{x:Null}" Padding="0" SelectedIndex="1">
     <TabControl.Styles>
       <Style Selector="TabControl /template/ ItemsPresenter>WrapPanel">
-        <Setter Property="Margin" Value="4,4,4,-2" />
+        <Setter Property="Margin" Value="8,8,8,-6" />
       </Style>
       <Style Selector="TabItem">
-        <Setter Property="MinWidth" Value="200" />
-        <Setter Property="MinHeight" Value="30" />
+        <Setter Property="MinWidth" Value="292" />
+        <Setter Property="MinHeight" Value="48" />
       </Style>
       <Style Selector="TabItem>Border#PART_LayoutRoot">
-        <Setter Property="Background" Value="{StaticResource Lightest}" />
+        <Setter Property="Background">
+          <Setter.Value>
+            <LinearGradientBrush EndPoint="8,0" >
+              <GradientStop Offset="0" Color="#3e403d" />
+              <GradientStop Offset="1" Color="#787876" />
+            </LinearGradientBrush>
+          </Setter.Value>
+        </Setter>
       </Style>
       <Style Selector="TabItem:selected>Border#PART_LayoutRoot">
-        <Setter Property="Background" Value="{StaticResource Light}" />
-      </Style>
+        <Setter Property="Background">
+          <Setter.Value>
+            <LinearGradientBrush EndPoint="8,0" >
+              <GradientStop Offset="0" Color="#3e403d" />
+              <GradientStop Offset="1" Color="#575955" />
+            </LinearGradientBrush>
+          </Setter.Value>
+        </Setter>      </Style>
       <Style Selector="TabItem:pointerover>Border#PART_LayoutRoot">
         <Setter Property="Background" Value="{StaticResource FicsitPrimary}" />
       </Style>
@@ -28,20 +41,23 @@
         <Setter Property="IsVisible" Value="false" />
       </Style>
       <Style Selector="TabItem:selected /template/ TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource Text}" />
+        <Setter Property="Foreground" Value="{StaticResource ControlText}" />
       </Style>
     </TabControl.Styles>
 
     <TabControl.ItemTemplate>
       <DataTemplate>
-        <TextBlock Classes="menuText" Text="{Binding Header}" />
+        <StackPanel Orientation="Horizontal">
+          <Image Source="avares://Architeptable/Assets/default_tab_icon.png" Height="28" Margin="0,0,16,0" />
+          <TextBlock Classes="menuText" Text="{Binding Header}" FontSize="24" VerticalAlignment="Center" />
+        </StackPanel>
       </DataTemplate>
     </TabControl.ItemTemplate>
 
     <TabControl.ContentTemplate>
       <DataTemplate>
         <DockPanel>
-          <Rectangle DockPanel.Dock="Top" Fill="{StaticResource Light}" MinHeight="4" />
+          <Rectangle DockPanel.Dock="Top" Fill="{StaticResource Light}" MinHeight="8" />
           <views:AsyncView Background="{StaticResource Darkest}" />
         </DockPanel>
       </DataTemplate>
