@@ -17,7 +17,7 @@
       </ListBox>
 
       <Border Classes="detail">
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
           <DockPanel>
             <Label DockPanel.Dock="Left" Target="nameBox" Content="Name:" />
             <TextBox x:Name="nameBox" Text="{Binding Current.Name}" />

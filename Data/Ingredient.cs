@@ -6,7 +6,9 @@ public class Ingredient
     public double Quantity { get; set; }
     public bool IsOutput { get; set; }
 
-    public required int RecipeID { get; set; }
+    public int? RecipeID { get; set; }
+
+    public int? FacilityID { get; set; }
 
     public required int PartID { get; set; }
     public Part Part { get; set; } = default!;
