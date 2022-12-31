@@ -11,7 +11,7 @@
              SelectedItem="{Binding Current}">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <TextBlock Classes="menuText" Text="{Binding Name,Mode=TwoWay}" Width="276" />
+          <TextBlock Classes="menuText" Text="{Binding Name}"  />
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>

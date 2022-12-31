@@ -60,6 +60,9 @@
             <Setter Property="Margin" Value="0,8,0,8" />
         </Style>
 
+        <Style Selector="ListBox">
+            <Setter Property="Width" Value="300" />
+        </Style>
         <Style Selector="ListBox, ListBoxItem">
             <Setter Property="Background" Value="{StaticResource Dark}" />
         </Style>
@@ -74,8 +77,8 @@
             <Setter Property="Foreground" Value="{StaticResource FicsitPrimary}" />
         </Style>
 
-      <Style Selector="Border.detail">
-        <Setter Property="BoxShadow" Value="0 0 32 16 #33000000" />
-      </Style>
+        <Style Selector="Border.detail">
+            <Setter Property="BoxShadow" Value="0 0 32 16 #33000000" />
+        </Style>
     </Application.Styles>
 </Application>
