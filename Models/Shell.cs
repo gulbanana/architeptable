@@ -16,11 +16,7 @@ public class Shell : LoadableModelBase
         return Task.Run(() =>
         {
             using var context = new EntityContext();
-
-            if (context.Database.EnsureCreated())
-            {
-                Bootstrap.InitDB(context);
-            }
+            context.Database.EnsureCreated();
 
             Tabs = new TabModelBase[]
             {

@@ -32,12 +32,15 @@ public class Recipes : TabModelBase
                                      select new { r.ID, r.Name, im };
 
         All = (from r in await recipesWithIngredients.ToListAsync()
+               orderby r.im.IsOutput, r.Name
                group r.im by (r.ID, r.Name) into g
+               orderby g.Key.Name
                select new RecipeModel { Owner = self, ID = g.Key.ID, Name = g.Key.Name, Ingredients = g }).ToList();
 
         Current = All.First();
 
         PartOptions = await context.Parts
+            .OrderBy(p => p.Name)
             .Select(p => new OptionModel(p.ID, p.Name))
             .ToListAsync();
     }

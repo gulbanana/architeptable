@@ -16,8 +16,9 @@ public class Parts : TabModelBase
     internal override async Task LoadAsync(EntityContext context)
     {
         var self = this;
-        var allIngredients = from i in context.Parts
-                             select new Row { Owner = self, ID = i.ID, Name = i.Name };
+        var allIngredients = from p in context.Parts
+                             orderby p.Name
+                             select new Row { Owner = self, ID = p.ID, Name = p.Name };
 
         All = await allIngredients.ToListAsync();
     }

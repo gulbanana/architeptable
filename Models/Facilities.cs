@@ -37,12 +37,15 @@ public partial class Facilities : TabModelBase
                             let inputs = f.Ingredients
                                 .Where(s => !s.IsOutput)
                                 .Select(s => new IngredientModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
+                                .OrderBy(i => i.Part.Name)
                                 .ToList()
                             let outputs = f.Ingredients
                                 .Where(s => s.IsOutput)
                                 .Select(s => new IngredientModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
+                                .OrderBy(i => i.Part.Name)
                                 .ToList()
                             let processes = f.Processes.Select(p => new ProcessModel { Owner = self, ID = p.ID, Recipe = new OptionModel(p.Recipe.ID, p.Recipe.Name), Machines = p.Machines, Overclock = p.Overclock })
+                            orderby f.Name
                             select new FacilityModel 
                             { 
                                 Owner = self, 
@@ -55,13 +58,15 @@ public partial class Facilities : TabModelBase
 
         All = allFacilities.ToList();
 
-        Current = All.First();
+        Current = All.FirstOrDefault()!;
 
         PartOptions = await context.Parts
+            .OrderBy(r => r.Name)
             .Select(p => new OptionModel(p.ID, p.Name))
             .ToListAsync();
 
         RecipeOptions = await context.Recipes
+            .OrderBy(r => r.Name)
             .Select(p => new OptionModel(p.ID, p.Name))
             .ToListAsync();
     }
@@ -118,6 +123,12 @@ public partial class Facilities : TabModelBase
         {
             get => overclock;
             set => SaveIfChanged(ref overclock, value);
+        }
+
+        public string OverclockText
+        {
+            get => Overclock.ToString("0.0");
+            set => Overclock = double.Parse(value);
         }
     }
 }
