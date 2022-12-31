@@ -4,10 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:Architeptable.Models"
              x:Class="Architeptable.Views.Factories" x:DataType="models:Factories"
-             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="200" d:DataContext="{x:Static models:Mock.Factories}">
-  <DataGrid Items="{Binding All}" Margin="0,8,0,0">
-    <DataGrid.Columns>
-      <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-    </DataGrid.Columns>
-  </DataGrid>
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Factories}">
+  <DockPanel>
+    <ListBox DockPanel.Dock="Left"
+             Items="{Binding All}"
+             SelectedItem="{Binding Current}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Classes="menuText" Text="{Binding Name}" Width="276" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <Border Classes="detail">
+      <DataGrid Items="{Binding All}">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+        </DataGrid.Columns>
+      </DataGrid>
+    </Border>
+  </DockPanel>
 </UserControl>

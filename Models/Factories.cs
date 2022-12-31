@@ -13,6 +13,13 @@ public class Factories : TabModelBase
 
     public Factories(Shell? owner) : base(owner) { }
 
+    private Row current = default!;
+    public Row Current
+    {
+        get => current;
+        set => RaiseAndSetIfChanged(ref current, value);
+    }
+
     internal override async Task LoadAsync(EntityContext context)
     {
         var self = this;

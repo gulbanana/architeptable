@@ -9,10 +9,10 @@ public class Recipes : TabModelBase
 {
     public override string Header => "Recipes";
     public IEnumerable<Recipe> All { get; set; } = Enumerable.Empty<Recipe>();
-    private Recipe current = default!;
 
     public Recipes(Shell? owner) : base(owner) { }
 
+    private Recipe current = default!;
     public Recipe Current
     {
         get => current;

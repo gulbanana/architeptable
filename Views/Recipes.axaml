@@ -4,23 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:Architeptable.Models"
              x:Class="Architeptable.Views.Recipes" x:DataType="models:Recipes"
-             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="200" d:DataContext="{x:Static models:Mock.Recipes}">
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Recipes}">
     <DockPanel>
       <ListBox DockPanel.Dock="Left"
                Items="{Binding All}" 
                SelectedItem="{Binding Current}">
         <ListBox.ItemTemplate>
           <DataTemplate>
-            <TextBlock Classes="menuText" Text="{Binding Name}" />
+            <TextBlock Classes="menuText" Text="{Binding Name}" Width="276" />
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
 
-      <DataGrid Items="{Binding Current.Ingredients}" Margin="0,8,0,0">
-        <DataGrid.Columns>
-          <DataGridTextColumn Header="Ingredient" Binding="{Binding Name}" IsReadOnly="true" />
-          <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-        </DataGrid.Columns>
-      </DataGrid>
+      <Border Classes="detail">
+        <DataGrid Items="{Binding Current.Ingredients}">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Ingredient" Binding="{Binding Name}" IsReadOnly="true" />
+            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+            <DataGridCheckBoxColumn Header="Output" Binding="{Binding IsOutput}" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
     </DockPanel>
 </UserControl>

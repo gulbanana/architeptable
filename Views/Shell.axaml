@@ -6,36 +6,43 @@
              xmlns:views="using:Architeptable.Views"
              x:Class="Architeptable.Views.Shell" x:DataType="models:Shell"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Shell}">
-  <TabControl Items="{Binding Tabs}" Background="{x:Null}" Padding="0" SelectedIndex="1">
+  <TabControl Items="{Binding Tabs}" Background="{x:Null}" Padding="0" SelectedIndex="0" SelectionChanged="TabsSelectionChanged">
     <TabControl.Styles>
-      <Style Selector="TabControl /template/ ItemsPresenter>WrapPanel">
-        <Setter Property="Margin" Value="8,8,8,-6" />
-      </Style>
-      <Style Selector="TabItem">
-        <Setter Property="MinWidth" Value="292" />
-        <Setter Property="MinHeight" Value="48" />
-      </Style>
+      <!-- Dynamic tab background colours -->
       <Style Selector="TabItem>Border#PART_LayoutRoot">
         <Setter Property="Background">
           <Setter.Value>
-            <LinearGradientBrush EndPoint="8,0" >
+            <LinearGradientBrush EndPoint="3%,0%" >
               <GradientStop Offset="0" Color="#3e403d" />
               <GradientStop Offset="1" Color="#787876" />
             </LinearGradientBrush>
           </Setter.Value>
         </Setter>
       </Style>
-      <Style Selector="TabItem:selected>Border#PART_LayoutRoot">
+      <Style Selector="TabItem.left>Border#PART_LayoutRoot">
         <Setter Property="Background">
           <Setter.Value>
-            <LinearGradientBrush EndPoint="8,0" >
-              <GradientStop Offset="0" Color="#3e403d" />
-              <GradientStop Offset="1" Color="#575955" />
+            <LinearGradientBrush StartPoint="97%,0%" EndPoint="100%,0%" >
+              <GradientStop Offset="0" Color="#787876" />
+              <GradientStop Offset="1" Color="#3e403d" />              
             </LinearGradientBrush>
           </Setter.Value>
-        </Setter>      </Style>
+        </Setter>
+      </Style>
+      <Style Selector="TabItem:selected>Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="{StaticResource Light}" />
+      </Style>
       <Style Selector="TabItem:pointerover>Border#PART_LayoutRoot">
         <Setter Property="Background" Value="{StaticResource FicsitPrimary}" />
+      </Style>
+
+      <!-- Other stuff-->
+      <Style Selector="TabControl /template/ ItemsPresenter>WrapPanel">
+        <Setter Property="Margin" Value="8,8,8,-6" />
+      </Style>
+      <Style Selector="TabItem">
+        <Setter Property="MinWidth" Value="292" />
+        <Setter Property="MinHeight" Value="48" />
       </Style>
       <Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
         <Setter Property="IsVisible" Value="false" />
