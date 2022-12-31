@@ -5,7 +5,7 @@ namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    private static readonly List<Recipes.Recipe> recipes = new()
+    private static readonly List<Recipes.RecipeModel> recipes = new()
     {
         new()
         {

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Architeptable.Models;
 
-public class Factories : TabModelBase
+public class Facilities : TabModelBase
 {
-    public override string Header => "Factories";
-    public IEnumerable<Row> All { get; set; } = Enumerable.Empty<Row>();
+    public override string Header => "Facilities";
+    public IEnumerable<FacilityModel> All { get; set; } = Enumerable.Empty<FacilityModel>();
 
-    public Factories(Shell? owner) : base(owner) { }
+    public Facilities(Shell? owner) : base(owner) { }
 
-    private Row current = default!;
-    public Row Current
+    private FacilityModel current = default!;
+    public FacilityModel Current
     {
         get => current;
         set => RaiseAndSetIfChanged(ref current, value);
@@ -24,12 +24,12 @@ public class Factories : TabModelBase
     {
         var self = this;
         var allFacilities = from f in context.Facilities
-                            select new Row { Owner = self, ID = f.ID, Name = f.Name };
+                            select new FacilityModel { Owner = self, ID = f.ID, Name = f.Name };
 
         All = await allFacilities.ToListAsync();
     }
 
-    public class Row
+    public class FacilityModel
     {
         public TabModelBase? Owner { get; init; }
         public int ID { get; init; }

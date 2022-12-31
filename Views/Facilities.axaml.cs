@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace Architeptable.Views
 {
-    public partial class Factories : UserControl
+    public partial class Facilities : UserControl
     {
-        public Factories()
+        public Facilities()
         {
             InitializeComponent();
         }

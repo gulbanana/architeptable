@@ -6,7 +6,7 @@ public static partial class Mock
     {
         Tabs = new TabModelBase[]
         {
-            Factories,
+            Facilities,
             Recipes,
             Parts
         }

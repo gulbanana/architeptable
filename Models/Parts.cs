@@ -15,7 +15,7 @@ public class Parts : TabModelBase
     internal override async Task LoadAsync(Data.EntityContext context)
     {
         var self = this;
-        var allIngredients = from i in context.Ingredients
+        var allIngredients = from i in context.Parts
                              select new Row { Owner = self, ID = i.ID, Name = i.Name };
 
         All = await allIngredients.ToListAsync();
@@ -33,7 +33,7 @@ public class Parts : TabModelBase
             set
             {
                 name = value;
-                Owner?.Save(c => c.Ingredients.Find(ID)!.Name = value);
+                Owner?.Save(c => c.Parts.Find(ID)!.Name = value);
             }
         }
     }

@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:Architeptable.Models"
-             x:Class="Architeptable.Views.Factories" x:DataType="models:Factories"
+             x:Class="Architeptable.Views.Facilities" x:DataType="models:Facilities"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Factories}">
   <DockPanel>
     <ListBox DockPanel.Dock="Left"

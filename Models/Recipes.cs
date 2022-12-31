@@ -8,12 +8,12 @@ namespace Architeptable.Models;
 public class Recipes : TabModelBase
 {
     public override string Header => "Recipes";
-    public IEnumerable<Recipe> All { get; set; } = Enumerable.Empty<Recipe>();
+    public IEnumerable<RecipeModel> All { get; set; } = Enumerable.Empty<RecipeModel>();
 
     public Recipes(Shell? owner) : base(owner) { }
 
-    private Recipe current = default!;
-    public Recipe Current
+    private RecipeModel current = default!;
+    public RecipeModel Current
     {
         get => current;
         set => RaiseAndSetIfChanged(ref current, value);
@@ -23,14 +23,14 @@ public class Recipes : TabModelBase
     {
         var self = this;
         var recipesWithIngredients = from r in context.Recipes
-                                     from ri in r.Ingredients
-                                     let i = ri.Ingredient
-                                     let im = new IngredientRow { Owner = self, ID = ri.ID, Name = i.Name, Quantity = ri.Quantity, IsOutput = ri.IsOutput }
+                                     from i in r.Ingredients
+                                     let p = i.Part
+                                     let im = new IngredientRow { Owner = self, ID = i.ID, Name = p.Name, Quantity = i.Quantity, IsOutput = i.IsOutput }
                                      select new { r.Name, im };
 
         All = from r in await recipesWithIngredients.ToListAsync()
               group r.im by r.Name into g
-              select new Recipe { Name = g.Key, Ingredients = g };
+              select new RecipeModel { Name = g.Key, Ingredients = g };
 
         current = All.First();
     }
@@ -65,7 +65,7 @@ public class Recipes : TabModelBase
         }
     }
 
-    public class Recipe
+    public class RecipeModel
     {
         public required string Name { get; init; }
         public required IEnumerable<IngredientRow> Ingredients { get; init; }

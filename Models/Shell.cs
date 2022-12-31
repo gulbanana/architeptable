@@ -24,7 +24,7 @@ public class Shell : LoadableModelBase
 
             Tabs = new TabModelBase[]
             {
-                new Factories(this),
+                new Facilities(this),
                 new Recipes(this),
                 new Parts(this)
             };

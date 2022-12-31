@@ -29,4 +29,14 @@
     <AvaloniaResource Include="Assets\**" />
     <Compile Condition="'$(Configuration)' == 'Debug'" Remove="Data/Precompiled/*.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Views\Facilities.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Facilities.axaml.cs">
+      <DependentUpon>Facilities.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

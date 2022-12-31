@@ -5,9 +5,9 @@ namespace Architeptable.Data;
 
 class EntityContext : DbContext
 {
-    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+    public DbSet<Part> Parts => Set<Part>();
     public DbSet<Recipe> Recipes => Set<Recipe>();
-    public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
+    public DbSet<Ingredient> RecipeIngredients => Set<Ingredient>();
     public DbSet<Facility> Facilities => Set<Facility>();
 
     public string DbPath { get; }
