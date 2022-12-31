@@ -10,6 +10,7 @@ public class Recipes : TabModelBase
 {
     public override string Header => "Recipes";
     public IEnumerable<RecipeModel> All { get; set; } = Enumerable.Empty<RecipeModel>();
+    public IEnumerable<OptionModel> PartOptions { get; set; } = Enumerable.Empty<OptionModel>();
 
     public Recipes(Shell? owner) : base(owner) { }
 
@@ -24,14 +25,10 @@ public class Recipes : TabModelBase
     {
         var self = this;
 
-        var allParts = await context.Parts
-            .Select(p => new PartModel(p.ID, p.Name))
-            .ToListAsync();
-
         var recipesWithIngredients = from r in context.Recipes
                                      from i in r.Ingredients
                                      let p = i.Part
-                                     let im = new IngredientModel { Owner = self, ID = i.ID, CurrentPart = new(p.ID, p.Name), AllParts = allParts, Quantity = i.Quantity, IsOutput = i.IsOutput }
+                                     let im = new IngredientModel { Owner = self, ID = i.ID, Part = new(p.ID, p.Name), Quantity = i.Quantity, IsOutput = i.IsOutput }
                                      select new { r.ID, r.Name, im };
 
         All = (from r in await recipesWithIngredients.ToListAsync()
@@ -39,9 +36,11 @@ public class Recipes : TabModelBase
                select new RecipeModel { Owner = self, ID = g.Key.ID, Name = g.Key.Name, Ingredients = g }).ToList();
 
         Current = All.First();
-    }
 
-    public record PartModel(int ID, string Name);
+        PartOptions = await context.Parts
+            .Select(p => new OptionModel(p.ID, p.Name))
+            .ToListAsync();
+    }
 
     public class RecipeModel : EntityModelBase<Recipe>
     {
@@ -57,13 +56,11 @@ public class Recipes : TabModelBase
 
     public class IngredientModel : EntityModelBase<Ingredient>
     {
-        public required IEnumerable<PartModel> AllParts { get; init; }
-
-        private PartModel? currentPart;
-        public required PartModel CurrentPart
+        private OptionModel? part;
+        public required OptionModel Part
         {
-            get => currentPart!;
-            set => SaveIfChanged(ref currentPart, value, e => e.PartID = value.ID);
+            get => part!;
+            set => SaveIfChanged(ref part, value, e => e.PartID = value.ID);
         }
 
         private double quantity;

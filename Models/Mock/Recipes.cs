@@ -5,7 +5,7 @@ namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    private static readonly List<Recipes.PartModel> recipeParts = new()
+    private static readonly List<OptionModel> recipeParts = new()
     {
         new(0, "Water"),
         new(0, "Iron Ore"),
@@ -20,9 +20,9 @@ public static partial class Mock
             Name = "Pure Iron Ingot",
             Ingredients = new List<Recipes.IngredientModel>
             {
-                new() { AllParts = recipeParts, CurrentPart = recipeParts[1], Quantity = 35 },
-                new() { AllParts = recipeParts, CurrentPart = recipeParts[0], Quantity = 20 },
-                new() { AllParts = recipeParts, CurrentPart = recipeParts[3], Quantity = 65, IsOutput = true },
+                new() { Part = recipeParts[1], Quantity = 35 },
+                new() { Part = recipeParts[0], Quantity = 20 },
+                new() { Part = recipeParts[3], Quantity = 65, IsOutput = true },
             }
         },
         new()
@@ -30,15 +30,16 @@ public static partial class Mock
             Name = "Iron Alloy Ingot",
             Ingredients = new List<Recipes.IngredientModel>
             {
-                new() { AllParts = recipeParts, CurrentPart = recipeParts[1], Quantity = 20 },
-                new() { AllParts = recipeParts, CurrentPart = recipeParts[2], Quantity = 20 },
-                new() { AllParts = recipeParts, CurrentPart = recipeParts[3], Quantity = 50, IsOutput = true },
+                new() { Part = recipeParts[1], Quantity = 20 },
+                new() { Part = recipeParts[2], Quantity = 20 },
+                new() { Part = recipeParts[3], Quantity = 50, IsOutput = true },
             }
         }
     };
 
     public static readonly Recipes Recipes = new(null)
     {
+        PartOptions = recipeParts,
         All = recipes,
         Current = recipes.First()
     };

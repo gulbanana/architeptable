@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -5,13 +6,13 @@ namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    private static readonly List<Facilities.PartModel> facilityParts = new()
+    private static readonly List<OptionModel> facilityParts = new()
     {
         new(0, "Uranium")
     };
 
 
-    private static readonly List<Facilities.RecipeModel> facilityRecipes = new()
+    private static readonly List<OptionModel> facilityRecipes = new()
     {
         new(0, "Nuclear Power")
     };
@@ -23,12 +24,12 @@ public static partial class Mock
             Name = "Nuclear Power Plant",
             Inputs = new Facilities.IngredientModel[]
             {
-                new() {  AllParts = facilityParts, CurrentPart = facilityParts[0], Quantity = 1000 }
+                new() { Part = facilityParts[0], Quantity = 1000 }
             },
             Outputs = Enumerable.Empty<Facilities.IngredientModel>(),
             Processes = new Facilities.ProcessModel[]
             {
-               new() { AllRecipes = facilityRecipes, CurrentRecipe = facilityRecipes[0] }
+               new() { Recipe = facilityRecipes[0] }
             }
         }
     };
@@ -36,6 +37,8 @@ public static partial class Mock
     public static readonly Facilities Facilities = new(null)
     {
         All = facilityFacilities,
-        Current = facilityFacilities[0]
+        Current = facilityFacilities[0],
+        PartOptions = facilityParts,
+        RecipeOptions = facilityRecipes
     };
 }
