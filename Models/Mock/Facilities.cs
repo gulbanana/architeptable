@@ -29,7 +29,7 @@ public static partial class Mock
             Outputs = Enumerable.Empty<Facilities.IngredientModel>(),
             Processes = new Facilities.ProcessModel[]
             {
-               new() { Recipe = facilityRecipes[0] }
+               new() { Recipe = facilityRecipes[0], Machines = 10, Overclock = 1.0 }
             }
         }
     };

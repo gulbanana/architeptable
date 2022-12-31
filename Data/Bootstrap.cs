@@ -25,14 +25,8 @@ static class Bootstrap
 
         context.Facilities.AddRange(new Facility[]
         {
-            new() { ID = 1, Name = "EMS Corner", Processes = new HashSet<Recipe>()
-            {
-                context.Recipes.Find(1)!
-            } },
-            new() { ID = 2, Name = "Nuclear Power Plant", Processes = new HashSet<Recipe>()
-            {
-                context.Recipes.Find(2)!
-            } }
+            new() { ID = 1, Name = "EMS Corner" },
+            new() { ID = 2, Name = "Nuclear Power Plant" }
         });
 
         context.Ingredients.AddRange(new Ingredient[]
@@ -47,6 +41,12 @@ static class Bootstrap
             new() { RecipeID = 2, PartID = 2, Quantity = 37.5, IsOutput = true },
             new() { FacilityID = 1, PartID = 6, Quantity = 1800 },
             new() { FacilityID = 1, PartID = 2, Quantity = 2000, IsOutput = true },
+        });
+
+        context.Processes.AddRange(new Process[]
+        {
+            new() { FacilityID = 1, RecipeID = 2, Machines = 1, Overclock = 1.0 },
+            new() { FacilityID = 2, RecipeID = 1, Machines = 1, Overclock = 1.0 }
         });
 
         context.SaveChanges();

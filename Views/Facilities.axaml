@@ -34,6 +34,8 @@
         <DataGrid Items="{Binding Current.Processes}">
           <DataGrid.Columns>
             <controls:DataGridComboColumn Header="Process" Binding="{Binding Recipe}" Items="{Binding RecipeOptions}" />
+            <DataGridTextColumn Header="Machines" Binding="{Binding Machines}" />
+            <DataGridTextColumn Header="Overclock" Binding="{Binding Overclock, StringFormat=\{0:0.0\}}" />
           </DataGrid.Columns>
         </DataGrid>
 

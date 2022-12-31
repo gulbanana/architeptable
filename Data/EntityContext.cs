@@ -9,6 +9,7 @@ public class EntityContext : DbContext
     public DbSet<Recipe> Recipes => Set<Recipe>();
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
     public DbSet<Facility> Facilities => Set<Facility>();
+    public DbSet<Process> Processes => Set<Process>();
 
     public string DbPath { get; }
 

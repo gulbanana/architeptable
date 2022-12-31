@@ -26,22 +26,23 @@ public partial class Facilities : TabModelBase
     {
         var self = this;
 
-        var facilitiesWithSpecifications = await context.Facilities
+        var facilitiesWithPlans = await context.Facilities
             .Include(f => f.Processes)
-            .Include(f => f.Specifications)
-            .ThenInclude(s => s.Part)
+            .ThenInclude(p => p.Recipe)
+            .Include(f => f.Ingredients)
+            .ThenInclude(i => i.Part)
             .ToListAsync();
 
-        var allFacilities = from f in facilitiesWithSpecifications
-                            let inputs = f.Specifications
+        var allFacilities = from f in facilitiesWithPlans
+                            let inputs = f.Ingredients
                                 .Where(s => !s.IsOutput)
                                 .Select(s => new IngredientModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
                                 .ToList()
-                            let outputs = f.Specifications
+                            let outputs = f.Ingredients
                                 .Where(s => s.IsOutput)
                                 .Select(s => new IngredientModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
                                 .ToList()
-                            let processes = f.Processes.Select(r => new ProcessModel { Recipe = new OptionModel(r.ID, r.Name) })
+                            let processes = f.Processes.Select(p => new ProcessModel { Owner = self, ID = p.ID, Recipe = new OptionModel(p.Recipe.ID, p.Recipe.Name), Machines = p.Machines, Overclock = p.Overclock })
                             select new FacilityModel 
                             { 
                                 Owner = self, 
@@ -96,13 +97,27 @@ public partial class Facilities : TabModelBase
         }
     }
 
-    public class ProcessModel : ModelBase
+    public class ProcessModel : EntityModelBase<Process>
     {
         private OptionModel? currentRecipe;
         public required OptionModel Recipe
         {
             get => currentRecipe!;
             set => RaiseAndSetIfChanged(ref currentRecipe, value);
+        }
+
+        private double machines;
+        public required double Machines
+        {
+            get => machines;
+            set => SaveIfChanged(ref machines, value);
+        }
+
+        private double overclock;
+        public required double Overclock
+        {
+            get => overclock;
+            set => SaveIfChanged(ref overclock, value);
         }
     }
 }

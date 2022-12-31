@@ -7,6 +7,6 @@ public class Facility
     public int ID { get; set; }
     public string Name { get; set; } = "New Facility";
 
-    public ICollection<Ingredient> Specifications { get; set; } = default!;
-    public ICollection<Recipe> Processes { get; set; } = default!;
+    public ICollection<Ingredient> Ingredients { get; set; } = default!;
+    public ICollection<Process> Processes { get; set; } = default!;
 }
