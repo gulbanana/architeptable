@@ -2,12 +2,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:loader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              xmlns:models="using:Architeptable.Models"
              x:Class="Architeptable.Views.Parts" x:DataType="models:Parts"
-             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200" d:DataContext="{x:Static models:Mock.Parts}">
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Parts}">
   <DataGrid Items="{Binding All}">
     <DataGrid.Columns>
       <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+      <DataGridTemplateColumn Header="Icon">
+        <DataGridTemplateColumn.CellTemplate>
+          <DataTemplate>
+            <Button Width="32" Height="32" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0" 
+                    Background="Transparent"
+                    Command="{Binding SetIcon}">
+              <Image Classes.spinning="{Binding IconSpinning}" Width="32" Height="32" Source="{Binding Icon}" />
+            </Button>
+          </DataTemplate>
+        </DataGridTemplateColumn.CellTemplate>
+      </DataGridTemplateColumn>
     </DataGrid.Columns>
   </DataGrid>
 </UserControl>

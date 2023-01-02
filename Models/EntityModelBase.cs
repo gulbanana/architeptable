@@ -29,6 +29,11 @@ public class EntityModelBase : ModelBase
         }
         return false;
     }
+
+    protected void Save(Action<EntityContext> write, bool reload = false)
+    {
+        Owner?.Save(c => write(c), reload);
+    }
 }
 
 public class EntityModelBase<E> : EntityModelBase where E : class
@@ -49,5 +54,13 @@ public class EntityModelBase<E> : EntityModelBase where E : class
             var entry = c.Entry(entity);
             entry.Property<T>(propertyName!).CurrentValue = value;
         }, reload, propertyName);
+    }
+
+    protected void Save(Action<E> write, bool reload = false)
+    {
+        Save(c =>
+        {
+            write(c.Set<E>().Find(ID)!);
+        }, reload);
     }
 }
