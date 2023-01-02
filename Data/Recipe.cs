@@ -7,5 +7,5 @@ public class Recipe
     public int ID { get; set; }
     public string Name { get; set; } = "New Recipe";
 
-    public ICollection<Ingredient> Ingredients { get; set; } = default!;
+    public ICollection<RecipePart> Ingredients { get; set; } = default!;
 }

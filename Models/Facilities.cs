@@ -31,19 +31,19 @@ public partial class Facilities : TabModelBase
         var facilitiesWithPlans = await context.Facilities
             .Include(f => f.Processes)
             .ThenInclude(p => p.Recipe)
-            .Include(f => f.Ingredients)
+            .Include(f => f.InputOutputs)
             .ThenInclude(i => i.Part)
             .ToListAsync();
 
         var allFacilities = from f in facilitiesWithPlans
-                            let inputs = f.Ingredients
+                            let inputs = f.InputOutputs
                                 .Where(s => !s.IsOutput)
-                                .Select(s => new IngredientModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
+                                .Select(s => new InputOutputModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
                                 .OrderBy(i => i.Part.Name)
                                 .ToList()
-                            let outputs = f.Ingredients
+                            let outputs = f.InputOutputs
                                 .Where(s => s.IsOutput)
-                                .Select(s => new IngredientModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
+                                .Select(s => new InputOutputModel { Owner = self, ID = s.ID, Part = new OptionModel(s.Part.ID, s.Part.Name), Quantity = s.Quantity })
                                 .OrderBy(i => i.Part.Name)
                                 .ToList()
                             let processes = f.Processes
@@ -101,8 +101,8 @@ public partial class Facilities : TabModelBase
 
     public class FacilityModel : EntityModelBase<Facility>
     {
-        public required IEnumerable<IngredientModel> Inputs { get; init; }
-        public required IEnumerable<IngredientModel> Outputs { get; init; }
+        public required IEnumerable<InputOutputModel> Inputs { get; init; }
+        public required IEnumerable<InputOutputModel> Outputs { get; init; }
         public required IEnumerable<ProcessModel> Processes { get; init; }
 
         private string? name;
@@ -113,7 +113,7 @@ public partial class Facilities : TabModelBase
         }
     }
 
-    public class IngredientModel : EntityModelBase<Ingredient>
+    public class InputOutputModel : EntityModelBase<FacilityPart>
     {
         private OptionModel? currentPart;
         public required OptionModel Part

@@ -27,11 +27,11 @@ public static partial class Mock
         new Facilities.FacilityModel
         {
             Name = "Nuclear Power Plant",
-            Inputs = new Facilities.IngredientModel[]
+            Inputs = new Facilities.InputOutputModel[]
             {
                 new() { Part = facilityParts[0], Quantity = 600, ActualQuantity = 900, Highlight = Brushes.Red }
             },
-            Outputs = Enumerable.Empty<Facilities.IngredientModel>(),
+            Outputs = Enumerable.Empty<Facilities.InputOutputModel>(),
             Processes = new Facilities.ProcessModel[]
             {
                new() { Recipe = facilityRecipes[0], Machines = 10, Overclock = 1.0 }

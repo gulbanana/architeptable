@@ -7,8 +7,9 @@ public class EntityContext : DbContext
 {
     public DbSet<Part> Parts => Set<Part>();
     public DbSet<Recipe> Recipes => Set<Recipe>();
-    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+    public DbSet<RecipePart> RecipeParts => Set<RecipePart>();
     public DbSet<Facility> Facilities => Set<Facility>();
+    public DbSet<FacilityPart> FacilityParts => Set<FacilityPart>();
     public DbSet<Process> Processes => Set<Process>();
 
     public string DbPath { get; }
@@ -44,14 +45,17 @@ public class EntityContext : DbContext
             new Facility() { ID = -1, Name = "Main Base" }
         );
 
-        builder.Entity<Ingredient>().HasData(
-            new Ingredient() { ID = -1, RecipeID = -1, PartID = -1, Quantity = 30 },
-            new Ingredient() { ID = -2, RecipeID = -1, PartID = -2, Quantity = 30, IsOutput = true },
-            new Ingredient() { ID = -3, RecipeID = -2, PartID = -2, Quantity = 30 },
-            new Ingredient() { ID = -4, RecipeID = -2, PartID = -3, Quantity = 20, IsOutput = true },
-            new Ingredient() { ID = -5, FacilityID = -1, PartID = -1, Quantity = 120 },
-            new Ingredient() { ID = -6, FacilityID = -1, PartID = -4, Quantity = 60 },
-            new Ingredient() { ID = -7, FacilityID = -1, PartID = -3, Quantity = 60, IsOutput = true }
+        builder.Entity<RecipePart>().HasData(
+            new RecipePart() { ID = -1, RecipeID = -1, PartID = -1, Quantity = 30 },
+            new RecipePart() { ID = -2, RecipeID = -1, PartID = -2, Quantity = 30, IsOutput = true },
+            new RecipePart() { ID = -3, RecipeID = -2, PartID = -2, Quantity = 30 },
+            new RecipePart() { ID = -4, RecipeID = -2, PartID = -3, Quantity = 20, IsOutput = true }
+        );
+
+        builder.Entity<FacilityPart>().HasData(
+            new FacilityPart() { ID = -1, FacilityID = -1, PartID = -1, Quantity = 120 },
+            new FacilityPart() { ID = -2, FacilityID = -1, PartID = -4, Quantity = 60 },
+            new FacilityPart() { ID = -3, FacilityID = -1, PartID = -3, Quantity = 60, IsOutput = true }
         );
 
         builder.Entity<Process>().Property(p => p.Machines).HasDefaultValue(1);

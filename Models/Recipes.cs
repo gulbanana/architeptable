@@ -62,7 +62,7 @@ public class Recipes : TabModelBase
         public required IEnumerable<IngredientModel> Ingredients { get; init; }
     }
 
-    public class IngredientModel : EntityModelBase<Ingredient>
+    public class IngredientModel : EntityModelBase<RecipePart>
     {
         private OptionModel? part;
         public required OptionModel Part
