@@ -6,32 +6,30 @@
              xmlns:models="using:Architeptable.Models"
              x:Class="Architeptable.Views.Recipes" x:DataType="models:Recipes"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Recipes}">
-    <DockPanel>
-      <ListBox DockPanel.Dock="Left"
-               Items="{Binding All}" 
-               SelectedItem="{Binding Current}">
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <TextBlock Classes="menuText" Text="{Binding Name}" />
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+  <DockPanel>
+    <ListBox DockPanel.Dock="Left" Items="{Binding All}" SelectedItem="{Binding Current}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Classes="menuText" Text="{Binding Name}" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
 
-      <Border Classes="detail">
-        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
-          <DockPanel>
-            <Label DockPanel.Dock="Left" Target="nameBox" Content="Name:" />
-            <TextBox x:Name="nameBox" Text="{Binding Current.Name}" />
-          </DockPanel>
+    <Border Classes="shadow">
+      <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+        <DockPanel Margin="0,8,0,0">
+          <Label DockPanel.Dock="Left" Target="nameBox" Content="Name:" />
+          <TextBox x:Name="nameBox" Text="{Binding Current.Name}" />
+        </DockPanel>
           
-          <DataGrid Items="{Binding Current.Ingredients}">
-            <DataGrid.Columns>
-              <controls:DataGridOptionColumn Header="Ingredient" Binding="{Binding Part}" Items="{Binding PartOptions}" />
-              <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-              <DataGridCheckBoxColumn Header="Output" Binding="{Binding IsOutput}" />
-            </DataGrid.Columns>
-          </DataGrid>
-        </StackPanel>
-      </Border>
-    </DockPanel>
+        <DataGrid Items="{Binding Current.Ingredients}">
+          <DataGrid.Columns>
+            <controls:DataGridOptionColumn Header="Ingredient" Binding="{Binding Part}" Items="{Binding PartOptions}" />
+            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+            <DataGridCheckBoxColumn Header="Output" Binding="{Binding IsOutput}" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </StackPanel>
+    </Border>
+  </DockPanel>
 </UserControl>

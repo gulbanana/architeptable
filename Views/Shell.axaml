@@ -65,7 +65,10 @@
       <DataTemplate>
         <DockPanel>
           <Rectangle DockPanel.Dock="Top" Fill="{StaticResource Light}" MinHeight="8" />
-          <views:AsyncView Background="{StaticResource Darkest}" />
+          <Panel>
+            <views:AsyncView Background="{StaticResource Darkest}" />
+            <Border Classes="shadow topInsert" />
+          </Panel>
         </DockPanel>
       </DataTemplate>
     </TabControl.ContentTemplate>

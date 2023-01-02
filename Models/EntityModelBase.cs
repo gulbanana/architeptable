@@ -18,12 +18,12 @@ public class EntityModelBase : ModelBase
         set => RaiseAndSetIfChanged(ref highlight, value);
     }
 
-    protected bool SaveIfChanged<T>(ref T field, T value, Action<EntityContext> write, [CallerMemberName] string? propertyName = null)
+    protected bool SaveIfChanged<T>(ref T field, T value, Action<EntityContext> write, bool reload = false, [CallerMemberName] string? propertyName = null)
     {
         if (!EqualityComparer<T>.Default.Equals(field, value))
         {
             field = value;
-            Owner?.Save(c => write(c));
+            Owner?.Save(c => write(c), reload);
             RaisePropertyChanged(propertyName);
             return true;
         }
@@ -33,21 +33,21 @@ public class EntityModelBase : ModelBase
 
 public class EntityModelBase<E> : EntityModelBase where E : class
 {
-    protected bool SaveIfChanged<T>(ref T field, T value, Action<E> write, [CallerMemberName] string? propertyName = null)
+    protected bool SaveIfChanged<T>(ref T field, T value, Action<E> write, bool reload = false, [CallerMemberName] string? propertyName = null)
     {
         return SaveIfChanged(ref field, value, c =>
         {
             write(c.Set<E>().Find(ID)!);
-        }, propertyName);
+        }, reload, propertyName);
     }
 
-    protected bool SaveIfChanged<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    protected bool SaveIfChanged<T>(ref T field, T value, bool reload = false, [CallerMemberName] string? propertyName = null)
     {
         return SaveIfChanged(ref field, value, c =>
         {
             var entity = c.Set<E>().Find(ID)!;
             var entry = c.Entry(entity);
             entry.Property<T>(propertyName!).CurrentValue = value;
-        }, propertyName);
+        }, reload, propertyName);
     }
 }

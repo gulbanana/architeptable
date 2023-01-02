@@ -1,14 +1,20 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Architeptable.Data;
 
 public class FacilityPart
 {
     public int ID { get; set; }
     public double Quantity { get; set; }
-    public bool IsOutput { get; set; }
+    
+    [InverseProperty(nameof(Facility.Outputs))]
+    public Facility? Source { get; set; }
+    public int? SourceID { get; set; }
 
-    public required int FacilityID { get; set; }
-    public Facility Facility { get; set; } = default!;
+    [InverseProperty(nameof(Facility.Inputs))]
+    public Facility? Destination { get; set; }
+    public int? DestinationID { get; set; }
 
-    public required int PartID { get; set; }
     public Part Part { get; set; } = default!;
+    public required int PartID { get; set; }
 }

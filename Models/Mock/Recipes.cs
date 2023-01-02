@@ -5,7 +5,7 @@ namespace Architeptable.Models;
 
 public static partial class Mock
 {
-    private static readonly List<OptionModel> recipeParts = new()
+    private static readonly List<OptionModel<int>> recipeParts = new()
     {
         new(0, "Water"),
         new(0, "Iron Ore"),

@@ -1,9 +1,13 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Data;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
+using System;
 
 namespace Architeptable.Controls;
 
-public class DataGridDerivedColumn : DataGridTextColumn
+public class DataGridDerivedColumn : DataGridBoundColumn
 {
     public DataGridDerivedColumn() 
     { 
@@ -12,13 +16,22 @@ public class DataGridDerivedColumn : DataGridTextColumn
 
     protected override IControl GenerateElement(DataGridCell cell, object dataItem)
     {
-        var text = (TextBlock)base.GenerateElement(cell, dataItem);
-        text.VerticalAlignment = VerticalAlignment.Center;
-        return new Border
+        return new TextBlock
         {
-            Classes = new("derived"),
-            Child = text,
-            Padding = new(12, 0)
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(12, 0, 0, 0),
+            [!TextBlock.TextProperty] = new Binding(((Binding)Binding).Path + ".Content"),
+            [!TextBlock.ForegroundProperty] = new Binding(((Binding)Binding).Path + ".Highlight"),
         };
+    }
+
+    protected override object PrepareCellForEdit(IControl editingElement, RoutedEventArgs editingEventArgs)
+    {
+        throw new NotSupportedException();
+    }
+
+    protected override IControl GenerateEditingElementDirect(DataGridCell cell, object dataItem)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -22,7 +22,6 @@ public abstract class TabModelBase : LoadableModelBase
         using (var context = new EntityContext())
         {
             await LoadAsync(context);
-            await CalculateAsync(context);
             isLoaded = true;
         }
     }
@@ -32,7 +31,7 @@ public abstract class TabModelBase : LoadableModelBase
         isLoaded = false;
     }
 
-    internal void Save(Action<EntityContext> write)
+    internal void Save(Action<EntityContext> write, bool reload)
     {
         if (owner is null)
         {
@@ -47,7 +46,14 @@ public abstract class TabModelBase : LoadableModelBase
                 if (await context.SaveChangesAsync() > 0)
                 {
                     owner.InvalidateOthers(this);
-                    await CalculateAsync(context);
+                    if (reload)
+                    {
+                        await LoadAsync(context);
+                    }
+                    else
+                    {
+                        await CalculateAsync(context);
+                    }
                 }
             }
         });

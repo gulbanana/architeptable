@@ -7,9 +7,7 @@
              x:Class="Architeptable.Views.Facilities" x:DataType="models:Facilities"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="400" d:DataContext="{x:Static models:Mock.Facilities}">
   <DockPanel>
-    <ListBox DockPanel.Dock="Left"
-             Items="{Binding All}"
-             SelectedItem="{Binding Current}">
+    <ListBox DockPanel.Dock="Left" Items="{Binding All}" SelectedItem="{Binding Current}">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <TextBlock Classes="menuText" Text="{Binding Name}"  />
@@ -17,37 +15,41 @@
       </ListBox.ItemTemplate>
     </ListBox>
 
-    <Border Classes="detail">
-      <StackPanel Orientation="Vertical">
-        <DockPanel>
+    <Border Classes="shadow">
+      <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,8,0,0">
           <Label DockPanel.Dock="Left" Target="nameBox" Content="Name:" />
           <TextBox x:Name="nameBox" Text="{Binding Current.Name}" />
         </DockPanel>
 
+        <UniformGrid Rows="3">
         <DataGrid Items="{Binding Current.Processes}">
           <DataGrid.Columns>
-            <controls:DataGridOptionColumn Header="Process" Binding="{Binding Recipe}" Items="{Binding RecipeOptions}" />
-            <DataGridTextColumn Header="Machines" Binding="{Binding Machines}" />
-            <DataGridTextColumn Header="Overclock" Binding="{Binding OverclockText}" />
+            <controls:DataGridOptionColumn Header="Process" Binding="{Binding Recipe}" Items="{Binding RecipeOptions}" Width="*" />
+            <DataGridTextColumn Header="Machines" Binding="{Binding Machines}" Width="174" />
+            <DataGridTextColumn Header="Overclock" Binding="{Binding OverclockText}" Width="174" />
           </DataGrid.Columns>
         </DataGrid>
 
         <DataGrid Items="{Binding Current.Inputs}">
           <DataGrid.Columns>
-            <controls:DataGridOptionColumn Header="Planned Input" Binding="{Binding Part}" Items="{Binding PartOptions}" />
-            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-            <controls:DataGridDerivedColumn Header="Consumption" Binding="{Binding ActualQuantity}" />
+            <controls:DataGridOptionColumn Header="Planned Input" Binding="{Binding Part}" Items="{Binding PartOptions}"  Width="*" />
+            <controls:DataGridOptionColumn Header="Source" Binding="{Binding Source}" Items="{Binding Current.FacilityOptions}" Width="*" />
+            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="174" />
+            <controls:DataGridDerivedColumn Header="Consumption" Binding="{Binding Consumption}" Width="174" />
           </DataGrid.Columns>
         </DataGrid>
 
         <DataGrid Items="{Binding Current.Outputs}">
           <DataGrid.Columns>
-            <controls:DataGridOptionColumn Header="Planned Output" Binding="{Binding Part}" Items="{Binding PartOptions}" />
-            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-            <controls:DataGridDerivedColumn Header="Production" Binding="{Binding ActualQuantity}" />
+            <controls:DataGridOptionColumn Header="Planned Output" Binding="{Binding Part}" Items="{Binding PartOptions}"  Width="*" />
+            <controls:DataGridOptionColumn Header="Destination" Binding="{Binding Destination}" Items="{Binding Current.FacilityOptions}" Width="*"  />
+            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="174" />
+            <controls:DataGridDerivedColumn Header="Production" Binding="{Binding Production}" Width="174" />
           </DataGrid.Columns>
         </DataGrid>
-      </StackPanel>
+        </UniformGrid>
+      </DockPanel>
     </Border>
   </DockPanel>
 </UserControl>

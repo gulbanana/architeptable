@@ -1,5 +1,6 @@
 using Architeptable.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Architeptable.Models;
 public class Parts : TabModelBase
 {
     public override string Header => "Parts";
-    public IEnumerable<Row> All { get; set; } = Enumerable.Empty<Row>();
+    public IReadOnlyList<Row> All { get; set; } = Array.Empty<Row>();
 
     public Parts(Shell? owner) : base(owner) { }
 

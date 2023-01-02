@@ -83,8 +83,14 @@
       <Setter Property="Foreground" Value="{StaticResource FicsitPrimary}" />
     </Style>
 
-    <Style Selector="Border.detail">
+    <Style Selector="Border.shadow">
       <Setter Property="BoxShadow" Value="0 0 32 16 #33000000" />
+    </Style>
+    <Style Selector="Border.topInsert">
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="Height" Value="1" />
+      <Setter Property="Margin" Value="0,-1,0,0" />
     </Style>
   </Application.Styles>
 </Application>

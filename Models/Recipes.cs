@@ -1,5 +1,6 @@
 using Architeptable.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,15 +10,15 @@ namespace Architeptable.Models;
 public class Recipes : TabModelBase
 {
     public override string Header => "Recipes";
-    public IEnumerable<RecipeModel> All { get; set; } = Enumerable.Empty<RecipeModel>();
-    public IEnumerable<OptionModel> PartOptions { get; set; } = Enumerable.Empty<OptionModel>();
+    public IReadOnlyList<RecipeModel> All { get; set; } = Array.Empty<RecipeModel>();
+    public IReadOnlyList<OptionModel> PartOptions { get; set; } = Array.Empty<OptionModel>();
 
     public Recipes(Shell? owner) : base(owner) { }
 
     private RecipeModel? current;
-    public RecipeModel Current
+    public RecipeModel? Current
     {
-        get => current!;
+        get => current;
         set => RaiseAndSetIfChanged(ref current, value);
     }
 
@@ -31,17 +32,26 @@ public class Recipes : TabModelBase
                                      let im = new IngredientModel { Owner = self, ID = i.ID, Part = new(p.ID, p.Name), Quantity = i.Quantity, IsOutput = i.IsOutput }
                                      select new { r.ID, r.Name, im };
 
+        var last = Current;
+
         All = (from r in await recipesWithIngredients.ToListAsync()
                orderby r.im.IsOutput, r.Name
                group r.im by (r.ID, r.Name) into g
                orderby g.Key.Name
-               select new RecipeModel { Owner = self, ID = g.Key.ID, Name = g.Key.Name, Ingredients = g }).ToList();
+               select new RecipeModel { Owner = self, ID = g.Key.ID, Name = g.Key.Name, Ingredients = g.ToList() }).ToList();
 
-        Current = All.First();
+        if (last != null)
+        {
+            Current = All.SingleOrDefault(f => f.ID == last.ID) ?? All.FirstOrDefault();
+        }
+        else
+        {
+            Current = All.FirstOrDefault();
+        }
 
         PartOptions = await context.Parts
             .OrderBy(p => p.Name)
-            .Select(p => new OptionModel(p.ID, p.Name))
+            .Select(p => new OptionModel<int>(p.ID, p.Name))
             .ToListAsync();
     }
 
@@ -59,13 +69,13 @@ public class Recipes : TabModelBase
             set => SaveIfChanged(ref name, value);
         }
 
-        public required IEnumerable<IngredientModel> Ingredients { get; init; }
+        public required IReadOnlyList<IngredientModel> Ingredients { get; init; }
     }
 
     public class IngredientModel : EntityModelBase<RecipePart>
     {
-        private OptionModel? part;
-        public required OptionModel Part
+        private OptionModel<int>? part;
+        public required OptionModel<int> Part
         {
             get => part!;
             set => SaveIfChanged(ref part, value, e => e.PartID = value.ID);
